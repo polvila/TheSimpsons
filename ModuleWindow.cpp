@@ -36,7 +36,7 @@ bool ModuleWindow::CleanUp()
 	SDL_Quit();
 	return true;
 }
-
+ 
 SDL_Window* ModuleWindow::GetWindow() const
 {
 	return window;
