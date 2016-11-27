@@ -114,6 +114,7 @@
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
+    <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +122,7 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleInput.h" />
+    <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="Point.h" />
   </ItemGroup>

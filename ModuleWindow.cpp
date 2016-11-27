@@ -31,9 +31,7 @@ bool ModuleWindow::CleanUp()
 	LOG("Destroying SDL window and quitting all SDL systems");
 
 	if (window != nullptr)
-	{
 		SDL_DestroyWindow(window);
-	}
 
 	SDL_Quit();
 	return true;
@@ -51,7 +49,6 @@ bool ModuleWindow::CreateWindow()
 
 	window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, 
 		GetFlagsWithFullscreen(FULLSCREEN));
-
 	return AssertWindowCreation();
 }
 
@@ -59,7 +56,7 @@ Uint32 ModuleWindow::GetFlagsWithFullscreen(bool active)
 {
 	Uint32 flags = SDL_WINDOW_SHOWN;
 
-	if (active == true)
+	if (active)
 		flags |= SDL_WINDOW_FULLSCREEN;
 
 	return flags;

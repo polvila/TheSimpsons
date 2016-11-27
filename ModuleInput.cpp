@@ -103,20 +103,26 @@ void ModuleInput::HandleKeyboard() const
 	for (int i = 0; i < MAX_KEYS; ++i)
 	{
 		if (keys[i] == 1)
-		{
-			if (keyboard[i] == KEY_IDLE)
-				keyboard[i] = KEY_DOWN;
-			else
-				keyboard[i] = KEY_REPEAT;
-		}
+			SetKeyToPressed(i);
 		else
-		{
-			if (keyboard[i] == KEY_REPEAT || keyboard[i] == KEY_DOWN)
-				keyboard[i] = KEY_UP;
-			else
-				keyboard[i] = KEY_IDLE;
-		}
+			SetKeyToReleased(i);
 	}
+}
+
+void ModuleInput::SetKeyToPressed(int keyId) const
+{
+	if (keyboard[keyId] == KEY_IDLE)
+		keyboard[keyId] = KEY_DOWN;
+	else
+		keyboard[keyId] = KEY_REPEAT;
+}
+
+void ModuleInput::SetKeyToReleased(int keyId) const
+{
+	if (keyboard[keyId] == KEY_REPEAT || keyboard[keyId] == KEY_DOWN)
+		keyboard[keyId] = KEY_UP;
+	else
+		keyboard[keyId] = KEY_IDLE;
 }
 
 void ModuleInput::HandleMouseButtons()

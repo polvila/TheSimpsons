@@ -75,6 +75,8 @@ private:
 	void InitializeMouseButtonsToIdle();
 	void SetWindowEventsToFalse();
 	void HandleKeyboard() const;
+	void SetKeyToPressed(int keyId) const;
+	void SetKeyToReleased(int keyId) const;
 	void HandleMouseButtons();
 	void HandleSDLEvents();
 	update_status GetNewUpdateStatus() const;
