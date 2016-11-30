@@ -75,6 +75,11 @@ SDL_Rect ModuleRender::GetCamera() const
 	return camera;
 }
 
+SDL_Renderer* ModuleRender::GetRenderer() const
+{
+	return renderer;
+}
+
 void ModuleRender::SetCameraPosition(int x, int y)
 {
 	camera.x = x;

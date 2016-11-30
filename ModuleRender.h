@@ -25,6 +25,7 @@ public:
 	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed = 1.0f) const;
 	void SetRect(SDL_Rect rect, SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed) const;
 	SDL_Rect GetCamera() const;
+	SDL_Renderer* GetRenderer() const;
 	void SetCameraPosition(int x, int y);
 
 private:
