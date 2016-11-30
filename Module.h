@@ -21,16 +21,20 @@ public:
 	bool Enable()
 	{
 		if (active == false)
-			return active = Start();
-
+		{
+			active = Start();
+			return active;
+		}
 		return true;
 	}
 
 	bool Disable()
 	{
 		if (active == true)
-			return active = !CleanUp();
-
+		{
+			active = !CleanUp();
+			return active;
+		}
 		return true;
 	}
 
