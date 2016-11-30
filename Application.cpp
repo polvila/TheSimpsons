@@ -2,6 +2,7 @@
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
 #include "ModuleInput.h"
+#include "ModuleTextures.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ Application::Application()
 	modules.push_back(window = new ModuleWindow());
 
 	modules.push_back(renderer = new ModuleRender());
+	modules.push_back(textures = new ModuleTextures());
 }
 
 Application::~Application()
@@ -79,5 +81,10 @@ ModuleInput* Application::GetModuleInput() const
 ModuleRender* Application::GetModuleRender() const
 {
 	return renderer;
+}
+
+ModuleTextures* Application::GetModuleTextures() const
+{
+	return textures;
 }
 
