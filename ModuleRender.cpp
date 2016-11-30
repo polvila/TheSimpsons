@@ -58,7 +58,7 @@ bool ModuleRender::CleanUp()
 // Blit to screen
 bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed) const
 {
-	SDL_Rect rect;
+	SDL_Rect rect = {};
 	SetRect(rect, texture, x, y, section, speed);
 	return TryToBlitToScreen(texture, section, rect);
 }
@@ -105,17 +105,16 @@ void ModuleRender::HandleDebugCamera() const
 {
 	int speed = 1;
 
-	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->GetModuleRender()->SetCameraPosition(GetCamera().x, GetCamera().y + speed);
+	SetCameraPositionWithKey(SDL_SCANCODE_UP, GetCamera().x, GetCamera().y + speed);
+	SetCameraPositionWithKey(SDL_SCANCODE_DOWN, GetCamera().x, GetCamera().y - speed);
+	SetCameraPositionWithKey(SDL_SCANCODE_LEFT, GetCamera().x + speed, GetCamera().y);
+	SetCameraPositionWithKey(SDL_SCANCODE_RIGHT, GetCamera().x - speed, GetCamera().y);
+}
 
-	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->GetModuleRender()->SetCameraPosition(GetCamera().x, GetCamera().y - speed);
-
-	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->GetModuleRender()->SetCameraPosition(GetCamera().x + speed, GetCamera().y);
-
-	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->GetModuleRender()->SetCameraPosition(GetCamera().x - speed, GetCamera().y);
+void ModuleRender::SetCameraPositionWithKey(SDL_Scancode scancodeKey, int x, int y)
+{
+	if (App->GetModuleInput()->GetKey(scancodeKey) == KEY_REPEAT)
+		App->GetModuleRender()->SetCameraPosition(x, y);
 }
 
 void ModuleRender::SetRectPosition(SDL_Rect* rect, int x, int y, float speed) const

@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "SDL/include/SDL_render.h"
+#include "SDL/include/SDL_scancode.h"
 
 struct SDL_Texture;
 struct SDL_Renderer;
@@ -31,6 +32,7 @@ private:
 	static Uint32 GetFlagsWithVsync(bool active);
 	bool AssertRenderCreation() const;
 	void HandleDebugCamera() const;
+	static void SetCameraPositionWithKey(SDL_Scancode scancodeKey, int x, int y);
 	void SetRectPosition(SDL_Rect* rect, int x, int y, float speed) const;
 	void TryToSetRectSize(SDL_Rect rect, SDL_Texture* texture, SDL_Rect* section) const;
 	void SetRectSize(SDL_Rect* rect, int w, int h) const;
