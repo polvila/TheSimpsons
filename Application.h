@@ -24,7 +24,7 @@ public:
 	ModuleWindow* GetModuleWindow() const;
 	ModuleInput* GetModuleInput() const;
 	ModuleRender* GetModuleRender() const;
-
+	ModuleTextures* GetModuleTextures() const;
 private:
 
 	ModuleInput* input;
