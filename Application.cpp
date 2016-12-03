@@ -3,6 +3,7 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
+#include "ModuleAudio.h"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ Application::Application()
 
 	modules.push_back(renderer = new ModuleRender());
 	modules.push_back(textures = new ModuleTextures());
+	modules.push_back(audio = new ModuleAudio());
 }
 
 Application::~Application()
@@ -88,3 +90,7 @@ ModuleTextures* Application::GetModuleTextures() const
 	return textures;
 }
 
+ModuleAudio* Application::GetModuleAudio() const
+{
+	return audio;
+}

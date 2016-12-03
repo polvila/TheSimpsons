@@ -5,6 +5,7 @@
 #include "Globals.h"
 #include "Module.h"
 #include "ModuleTextures.h"
+#include "ModuleAudio.h"
 
 class ModuleRender;
 class ModuleWindow;
@@ -25,12 +26,14 @@ public:
 	ModuleInput* GetModuleInput() const;
 	ModuleRender* GetModuleRender() const;
 	ModuleTextures* GetModuleTextures() const;
+	ModuleAudio* GetModuleAudio() const;
 private:
 
 	ModuleInput* input;
 	ModuleWindow* window;
 	ModuleRender* renderer;
 	ModuleTextures* textures;
+	ModuleAudio* audio;
 	
 	
 
