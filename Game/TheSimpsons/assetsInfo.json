@@ -1,7 +1,7 @@
 {
   "textures": {
-    "stage": {
-      "path": "stage1.png",
+    "stage1": {
+      "path": "TheSimpsons/stage1.png",
       "elements": {
         "background": {
           "x": 4,
@@ -134,7 +134,7 @@
       }
     },
     "homer": {
-      "path": "homer.png",
+      "path": "TheSimpsons/homer.png",
       "elements": {
         "idle": [
           {

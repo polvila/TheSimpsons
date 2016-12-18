@@ -39,7 +39,7 @@ bool ModuleJsonManager::CleanUp()
 	return true;
 }
 
-const char* ModuleJsonManager::GetSDL_TextureOf(SimpsonsTexture texture)
+char* ModuleJsonManager::GetTexturePathOf(SimpsonsTexture texture)
 {
 	return texturePathsMap[texture];
 }
@@ -56,8 +56,8 @@ Animation* ModuleJsonManager::GetAnimationOf(SimpsonsAnimation animation)
 
 void ModuleJsonManager::FillTextureMap()
 {
-	texturePathsMap[STAGE1] = json_object_get_string(stage1, "path");
-	texturePathsMap[HOMER] = json_object_get_string(homer, "path");
+	texturePathsMap[STAGE1] = const_cast<char*>(json_object_get_string(stage1, "path"));
+	texturePathsMap[HOMER] = const_cast<char*>(json_object_get_string(homer, "path"));
 }
 
 void ModuleJsonManager::FillSpritesMap()

@@ -48,7 +48,7 @@ SDL_Texture* const ModuleTextures::Load(const char* path)
 	if (surface == nullptr)
 		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError())
 	else
-		TryToCreateTextureFromSurface(texture, surface);
+		TryToCreateTextureFromSurface(&texture, surface);
 	return texture;
 }
 
@@ -77,14 +77,14 @@ bool ModuleTextures::AssertLoadPngSupport() const
 	return true;
 }
 
-void ModuleTextures::TryToCreateTextureFromSurface(SDL_Texture* texture, SDL_Surface* surface)
+void ModuleTextures::TryToCreateTextureFromSurface(SDL_Texture** texture, SDL_Surface* surface)
 {
-	texture = SDL_CreateTextureFromSurface(App->GetModuleRender()->GetRenderer(), surface);
+	*texture = SDL_CreateTextureFromSurface(App->GetModuleRender()->GetRenderer(), surface);
 
 	if (texture == nullptr)
 		LOG("Unable to create texture from surface! SDL Error: %s\n", SDL_GetError())
 	else
-		textures.push_back(texture);
+		textures.push_back(*texture);
 
 	SDL_FreeSurface(surface);
 }

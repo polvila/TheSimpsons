@@ -22,7 +22,7 @@ public:
 private:
 
 	bool AssertLoadPngSupport() const;
-	void TryToCreateTextureFromSurface(SDL_Texture* texture, SDL_Surface* surface);
+	void TryToCreateTextureFromSurface(SDL_Texture** texture, SDL_Surface* surface);
 	std::list<SDL_Texture*> textures;
 };
 

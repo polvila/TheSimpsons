@@ -139,7 +139,11 @@ void ModuleInput::HandleSDLEvents()
 	mouse_motion = { 0, 0 };
 
 	while (SDL_PollEvent(&event) != 0)
-		(this->*eventMap.at(event.type)) (eventParameterMap.at(event.type));
+	{
+		if(eventMap.find(event.type) != eventMap.end() 
+			&& eventParameterMap.find(event.type) != eventParameterMap.end())
+			(this->*eventMap.at(event.type)) (eventParameterMap.at(event.type));
+	}
 }
 
 update_status ModuleInput::GetNewUpdateStatus() const
@@ -204,5 +208,7 @@ void ModuleInput::InitializeEventParameterMap()
 
 void ModuleInput::SetWindowEvents(int)
 {
-	(this->*eventMap.at(event.window.event)) (eventParameterMap.at(event.window.event));
+	if(eventMap.find(event.window.event) != eventMap.end() 
+		&& eventParameterMap.find(event.window.event) != eventParameterMap.end())
+		(this->*eventMap.at(event.window.event)) (eventParameterMap.at(event.window.event));
 }

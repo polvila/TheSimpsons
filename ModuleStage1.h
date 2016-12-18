@@ -18,16 +18,10 @@ public:
 
 
 	SDL_Texture* graphics = nullptr;
-	SDL_Rect ground;
-	SDL_Rect background;
-	SDL_Rect foreground;
 
 private:
 	JSON_Value* root_value;
 	JSON_Array* assets;
 };
-
-
-
 
 #endif // __MODULESTAGE1_H__
