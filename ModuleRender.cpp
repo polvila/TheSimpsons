@@ -3,7 +3,6 @@
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
-#include "SDL/include/SDL.h"
 
 ModuleRender::ModuleRender()
 {
@@ -128,7 +127,7 @@ void ModuleRender::SetRectPosition(SDL_Rect* rect, int x, int y, float speed) co
 	rect->y = static_cast<int>(camera.y * speed) + y * SCREEN_SIZE;
 }
 
-void ModuleRender::TryToSetRectSize(SDL_Rect rect, SDL_Texture* texture, SDL_Rect* section) const
+void ModuleRender::TryToSetRectSize(SDL_Rect rect, SDL_Texture* texture, SDL_Rect* section)
 {
 	if (section != NULL)
 		SetRectSize(&rect, section->w, section->h);
@@ -136,13 +135,13 @@ void ModuleRender::TryToSetRectSize(SDL_Rect rect, SDL_Texture* texture, SDL_Rec
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 }
 
-void ModuleRender::SetRectSize(SDL_Rect* rect, int w, int h) const
+void ModuleRender::SetRectSize(SDL_Rect* rect, int w, int h)
 {
 	rect->w = w;
 	rect->h = h;
 }
 
-void ModuleRender::SetRectSizeProportionalToScreenSize(SDL_Rect* rect) const
+void ModuleRender::SetRectSizeProportionalToScreenSize(SDL_Rect* rect)
 {
 	rect->w *= SCREEN_SIZE;
 	rect->h *= SCREEN_SIZE;

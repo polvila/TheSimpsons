@@ -3,10 +3,9 @@
 
 #include "Module.h"
 #include "Point.h"
-
-#include "SDL/include/SDL_scancode.h"
-#include "SDL/include/SDL.h"
 #include <map>
+#include "SDL/include/SDL.h"
+
 
 #define NUM_MOUSE_BUTTONS 5
 
@@ -92,7 +91,7 @@ private:
 	KeyState	mouse_buttons[NUM_MOUSE_BUTTONS];
 	iPoint mouse_motion;
 	iPoint mouse;
-	static SDL_Event event;
+	SDL_Event event;
 
 	typedef void(ModuleInput::*Func)(int);
 	map<Uint32, Func> eventMap;

@@ -3,6 +3,8 @@
 
 #include "Globals.h"
 
+class Application;
+
 class Module
 {
 public:
@@ -10,7 +12,7 @@ public:
 	Module(bool active = true) : active(active)
 	{}
 
-	virtual ~Module()
+	~Module()
 	{}
 
 	bool IsEnabled() const

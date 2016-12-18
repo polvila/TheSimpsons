@@ -1,8 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
-#include "SDL/include/SDL.h"
-#include <cstring>
 
 #define MAX_KEYS 300
 
@@ -172,19 +170,19 @@ void ModuleInput::UpdateMouseMotionAndPosition(int)
 
 void ModuleInput::InitializeEventMap()
 {
-	eventMap[SDL_QUIT] = &SetTrueWindowEvent;
-	eventMap[SDL_WINDOWEVENT] = &SetWindowEvents;
-	eventMap[SDL_MOUSEBUTTONDOWN] = &SetStateMouseButton;
-	eventMap[SDL_MOUSEBUTTONUP] = &SetStateMouseButton;
-	eventMap[SDL_MOUSEMOTION] = &UpdateMouseMotionAndPosition;
+	eventMap[SDL_QUIT] = &ModuleInput::SetTrueWindowEvent;
+	eventMap[SDL_WINDOWEVENT] = &ModuleInput::SetWindowEvents;
+	eventMap[SDL_MOUSEBUTTONDOWN] = &ModuleInput::SetStateMouseButton;
+	eventMap[SDL_MOUSEBUTTONUP] = &ModuleInput::SetStateMouseButton;
+	eventMap[SDL_MOUSEMOTION] = &ModuleInput::UpdateMouseMotionAndPosition;
 
-	eventMap[SDL_WINDOWEVENT_HIDDEN] = &SetTrueWindowEvent;
-	eventMap[SDL_WINDOWEVENT_MINIMIZED] = &SetTrueWindowEvent;
-	eventMap[SDL_WINDOWEVENT_FOCUS_LOST] = &SetTrueWindowEvent;
-	eventMap[SDL_WINDOWEVENT_SHOWN] = &SetTrueWindowEvent;
-	eventMap[SDL_WINDOWEVENT_FOCUS_GAINED] = &SetTrueWindowEvent;
-	eventMap[SDL_WINDOWEVENT_MAXIMIZED] = &SetTrueWindowEvent;
-	eventMap[SDL_WINDOWEVENT_RESTORED] = &SetTrueWindowEvent;
+	eventMap[SDL_WINDOWEVENT_HIDDEN] = &ModuleInput::SetTrueWindowEvent;
+	eventMap[SDL_WINDOWEVENT_MINIMIZED] = &ModuleInput::SetTrueWindowEvent;
+	eventMap[SDL_WINDOWEVENT_FOCUS_LOST] = &ModuleInput::SetTrueWindowEvent;
+	eventMap[SDL_WINDOWEVENT_SHOWN] = &ModuleInput::SetTrueWindowEvent;
+	eventMap[SDL_WINDOWEVENT_FOCUS_GAINED] = &ModuleInput::SetTrueWindowEvent;
+	eventMap[SDL_WINDOWEVENT_MAXIMIZED] = &ModuleInput::SetTrueWindowEvent;
+	eventMap[SDL_WINDOWEVENT_RESTORED] = &ModuleInput::SetTrueWindowEvent;
 }
 
 void ModuleInput::InitializeEventParameterMap()

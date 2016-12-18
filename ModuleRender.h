@@ -3,8 +3,7 @@
 
 #include "Module.h"
 #include "Globals.h"
-#include "SDL/include/SDL_render.h"
-#include "SDL/include/SDL_scancode.h"
+#include "SDL/include/SDL.h"
 
 struct SDL_Texture;
 struct SDL_Renderer;
@@ -35,9 +34,9 @@ private:
 	void HandleDebugCamera() const;
 	static void SetCameraPositionWithKey(SDL_Scancode scancodeKey, int x, int y);
 	void SetRectPosition(SDL_Rect* rect, int x, int y, float speed) const;
-	void TryToSetRectSize(SDL_Rect rect, SDL_Texture* texture, SDL_Rect* section) const;
-	void SetRectSize(SDL_Rect* rect, int w, int h) const;
-	void SetRectSizeProportionalToScreenSize(SDL_Rect* rect) const;
+	static void TryToSetRectSize(SDL_Rect rect, SDL_Texture* texture, SDL_Rect* section);
+	static void SetRectSize(SDL_Rect* rect, int w, int h);
+	static void SetRectSizeProportionalToScreenSize(SDL_Rect* rect);
 	bool TryToBlitToScreen(SDL_Texture* texture, SDL_Rect* section, SDL_Rect rect) const;
 
 	SDL_Renderer* renderer = nullptr;

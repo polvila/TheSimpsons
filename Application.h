@@ -4,12 +4,12 @@
 #include <list>
 #include "Globals.h"
 #include "Module.h"
-#include "ModuleTextures.h"
-#include "ModuleAudio.h"
 
 class ModuleRender;
 class ModuleWindow;
+class ModuleTextures;
 class ModuleInput;
+class ModuleAudio;
 
 class Application
 {
