@@ -10,6 +10,7 @@ class ModuleWindow;
 class ModuleTextures;
 class ModuleInput;
 class ModuleAudio;
+class ModuleJsonManager;
 
 class Application
 {
@@ -27,6 +28,7 @@ public:
 	ModuleRender* GetModuleRender() const;
 	ModuleTextures* GetModuleTextures() const;
 	ModuleAudio* GetModuleAudio() const;
+	ModuleJsonManager* GetModuleJsonManager() const;
 private:
 
 	ModuleInput* input;
@@ -34,8 +36,7 @@ private:
 	ModuleRender* renderer;
 	ModuleTextures* textures;
 	ModuleAudio* audio;
-	
-	
+	ModuleJsonManager* jsonManager;
 
 	std::list<Module*> modules;
 };

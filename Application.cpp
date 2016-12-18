@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
+#include "ModuleJsonManager.h"
 
 using namespace std;
 
@@ -16,6 +17,8 @@ Application::Application()
 	modules.push_back(renderer = new ModuleRender());
 	modules.push_back(textures = new ModuleTextures());
 	modules.push_back(audio = new ModuleAudio());
+
+	modules.push_back(jsonManager = new ModuleJsonManager());
 }
 
 Application::~Application()
@@ -93,4 +96,9 @@ ModuleTextures* Application::GetModuleTextures() const
 ModuleAudio* Application::GetModuleAudio() const
 {
 	return audio;
+}
+
+ModuleJsonManager* Application::GetModuleJsonManager() const
+{
+	return jsonManager;
 }
