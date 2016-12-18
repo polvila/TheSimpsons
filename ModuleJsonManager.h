@@ -49,7 +49,7 @@ enum SimpsonsAnimation
 class ModuleJsonManager : public Module
 {
 public:
-	ModuleJsonManager();
+	ModuleJsonManager(bool start_enabled = true);
 	~ModuleJsonManager();
 
 	bool Init() override;

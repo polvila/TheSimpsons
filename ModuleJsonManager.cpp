@@ -1,7 +1,7 @@
 #include "ModuleJsonManager.h"
 #include "Globals.h"
 
-ModuleJsonManager::ModuleJsonManager()
+ModuleJsonManager::ModuleJsonManager(bool start_enabled) : Module(start_enabled)
 {
 }
 
