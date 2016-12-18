@@ -58,15 +58,15 @@ bool ModuleRender::CleanUp()
 bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed) const
 {
 	SDL_Rect rect = {};
-	SetRect(rect, texture, x, y, section, speed);
+	SetRect(&rect, texture, x, y, section, speed);
 	return TryToBlitToScreen(texture, section, rect);
 }
 
-void ModuleRender::SetRect(SDL_Rect rect, SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed) const
+void ModuleRender::SetRect(SDL_Rect* rect, SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed) const
 {
-	SetRectPosition(&rect, x, y, speed);
+	SetRectPosition(rect, x, y, speed);
 	TryToSetRectSize(rect, texture, section);
-	SetRectSizeProportionalToScreenSize(&rect);
+	SetRectSizeProportionalToScreenSize(rect);
 }
 
 SDL_Rect ModuleRender::GetCamera() const
@@ -82,7 +82,7 @@ SDL_Renderer* ModuleRender::GetRenderer() const
 void ModuleRender::SetCameraPosition(int x, int y)
 {
 	camera.x = x;
-	camera.y = x;
+	camera.y = y;
 }
 
 Uint32 ModuleRender::GetFlagsWithVsync(bool active)
@@ -127,12 +127,12 @@ void ModuleRender::SetRectPosition(SDL_Rect* rect, int x, int y, float speed) co
 	rect->y = static_cast<int>(camera.y * speed) + y * SCREEN_SIZE;
 }
 
-void ModuleRender::TryToSetRectSize(SDL_Rect rect, SDL_Texture* texture, SDL_Rect* section)
+void ModuleRender::TryToSetRectSize(SDL_Rect* rect, SDL_Texture* texture, SDL_Rect* section)
 {
 	if (section != NULL)
-		SetRectSize(&rect, section->w, section->h);
+		SetRectSize(rect, section->w, section->h);
 	else
-		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+		SDL_QueryTexture(texture, NULL, NULL, &rect->w, &rect->h);
 }
 
 void ModuleRender::SetRectSize(SDL_Rect* rect, int w, int h)
