@@ -40,7 +40,7 @@ bool ModuleTextures::CleanUp()
 }
 
 // Load new texture from file path
-SDL_Texture* const ModuleTextures::Load(const char* path)
+SDL_Texture* const ModuleTextures::Load(const char* path, SDL_Color* transparentPixelColor)
 {
 	SDL_Texture* texture = nullptr;
 	SDL_Surface* surface = IMG_Load(path);
@@ -48,7 +48,14 @@ SDL_Texture* const ModuleTextures::Load(const char* path)
 	if (surface == nullptr)
 		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError())
 	else
+	{
+		Uint32 transparentPixel = SDL_MapRGB(surface->format, 
+			transparentPixelColor->r, transparentPixelColor->g, transparentPixelColor->b);
+		SDL_SetColorKey(surface, SDL_TRUE, transparentPixel);
+
 		TryToCreateTextureFromSurface(&texture, surface);
+	}
+		
 	return texture;
 }
 

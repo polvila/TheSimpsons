@@ -23,6 +23,7 @@ bool ModuleJsonManager::Init()
 		FillTextureMap();
 		FillSpritesMap();
 		FillAnimationsMap();
+		FillTransparentPixelColorsMap();
 		return true;
 	}
 	return false;
@@ -30,6 +31,12 @@ bool ModuleJsonManager::Init()
 
 bool ModuleJsonManager::CleanUp()
 {
+	for (map<SimpsonsTexture, char*>::iterator it = texturePathsMap.begin(); it != texturePathsMap.end(); ++it) {
+		RELEASE(it->second);
+	}
+	for (map<SimpsonsTexture, SDL_Color*>::iterator it = transparentPixelColorsMap.begin(); it != transparentPixelColorsMap.end(); ++it) {
+		RELEASE(it->second);
+	}
 	for (map<SimpsonsSprite, SDL_Rect*>::iterator it = spritesMap.begin(); it != spritesMap.end(); ++it) {
 		RELEASE(it->second);
 	}
@@ -42,6 +49,11 @@ bool ModuleJsonManager::CleanUp()
 char* ModuleJsonManager::GetTexturePathOf(SimpsonsTexture texture)
 {
 	return texturePathsMap[texture];
+}
+
+SDL_Color* ModuleJsonManager::GetTransparentPixelColor(SimpsonsTexture texture)
+{
+	return transparentPixelColorsMap[texture];
 }
 
 SDL_Rect* ModuleJsonManager::GetSDL_RectOf(SimpsonsSprite sprite)
@@ -92,6 +104,12 @@ void ModuleJsonManager::FillAnimationsMap()
 	FillAnimationFrom(animationsMap[HOMER_ATTACK] = new Animation(), homerElements, "attack");
 }
 
+void ModuleJsonManager::FillTransparentPixelColorsMap()
+{
+	FillTransparentPixelColorFrom(transparentPixelColorsMap[STAGE1] = new SDL_Color(), stage1);
+	FillTransparentPixelColorFrom(transparentPixelColorsMap[HOMER] = new SDL_Color(), homer);
+}
+
 void ModuleJsonManager::FillSDL_RectFrom(SDL_Rect* sdlRect, const JSON_Object* jsonObject, const char* name)
 {
 	sdlRect->x = static_cast<int>(json_object_get_number(
@@ -140,4 +158,24 @@ void ModuleJsonManager::FillAnimationFrom(Animation* animation, const JSON_Objec
 	}
 }
 
+void ModuleJsonManager::FillTransparentPixelColorFrom(SDL_Color* color, const JSON_Object* jsonObject)
+{
+	JSON_Object* colorObj = json_object_get_object(jsonObject, "transparentPixelColor");
+	color->r = static_cast<Uint8>(json_object_get_number(
+		colorObj,
+		"r"
+	));
+	color->g = static_cast<Uint8>(json_object_get_number(
+		colorObj,
+		"g"
+	));
+	color->b = static_cast<Uint8>(json_object_get_number(
+		colorObj,
+		"b"
+	));
+	color->a = static_cast<Uint8>(json_object_get_number(
+		colorObj,
+		"a"
+	));
+}
 

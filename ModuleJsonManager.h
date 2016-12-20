@@ -56,6 +56,7 @@ public:
 	bool CleanUp() override;
 
 	char* GetTexturePathOf(SimpsonsTexture texture);
+	SDL_Color* GetTransparentPixelColor(SimpsonsTexture texture);
 	SDL_Rect* GetSDL_RectOf(SimpsonsSprite sprite);
 	Animation* GetAnimationOf(SimpsonsAnimation animation);
 
@@ -64,11 +65,14 @@ private:
 	void FillTextureMap();
 	void FillSpritesMap();
 	void FillAnimationsMap();
+	void FillTransparentPixelColorsMap();
 
 	static void FillSDL_RectFrom(SDL_Rect* sdlRect, const JSON_Object* jsonObject, const char* name);
 	static void FillAnimationFrom(Animation* animation, const JSON_Object* jsonObject, const char* name);
+	static void FillTransparentPixelColorFrom(SDL_Color* color, const JSON_Object* jsonObject);
 
 	std::map<SimpsonsTexture, char*> texturePathsMap;
+	std::map<SimpsonsTexture, SDL_Color*> transparentPixelColorsMap;
 	std::map<SimpsonsSprite, SDL_Rect*> spritesMap;
 	std::map<SimpsonsAnimation, Animation*> animationsMap;
 

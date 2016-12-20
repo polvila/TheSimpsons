@@ -2,6 +2,12 @@
   "textures": {
     "stage1": {
       "path": "TheSimpsons/stage1.png",
+      "transparentPixelColor" : {
+        "r": 86,
+        "g": 177,
+        "b": 222,
+        "a": 1
+      },
       "elements": {
         "background": {
           "x": 4,
@@ -9,7 +15,7 @@
           "w": 1664,
           "h": 256
         },
-        "ground": {
+        "foreground": {
           "x": 4,
           "y": 264,
           "w": 1664,
@@ -135,6 +141,12 @@
     },
     "homer": {
       "path": "TheSimpsons/homer.png",
+      "transparentPixelColor" : {
+        "r": 89,
+        "g": 253,
+        "b": 66,
+        "a": 1
+      },
       "elements": {
         "idle": [
           {

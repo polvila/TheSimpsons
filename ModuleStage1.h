@@ -17,7 +17,7 @@ public:
 	bool CleanUp() override;
 
 
-	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphicsStage1 = nullptr;
 
 private:
 	JSON_Value* root_value;

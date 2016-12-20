@@ -19,10 +19,10 @@ bool ModuleStage1::Start()
 {
 	LOG("Loading Stage 1");
 
-	graphics = App->GetModuleTextures()->Load(
-		App->GetModuleJsonManager()->GetTexturePathOf(STAGE1)
-	);
-
+	graphicsStage1 = App->GetModuleTextures()->Load(
+		                    App->GetModuleJsonManager()->GetTexturePathOf(STAGE1),
+		                    App->GetModuleJsonManager()->GetTransparentPixelColor(STAGE1)
+	                    );
 	return true;
 }
 
@@ -30,7 +30,7 @@ bool ModuleStage1::CleanUp()
 {
 	LOG("Unloading Stage 1");
 
-	App->GetModuleTextures()->Unload(graphics);
+	App->GetModuleTextures()->Unload(graphicsStage1);
 
 	return true;
 }
@@ -38,7 +38,12 @@ bool ModuleStage1::CleanUp()
 
 update_status ModuleStage1::Update()
 {
-	App->GetModuleRender()->Blit(graphics, 0, 0, App->GetModuleJsonManager()->GetSDL_RectOf(BACKGROUND), 0.75f);
+	App->GetModuleRender()->Blit(graphicsStage1, 0, 0, App->GetModuleJsonManager()->GetSDL_RectOf(FOREGROUND), 10.75f);
+	App->GetModuleRender()->Blit(graphicsStage1, 1041, 16, App->GetModuleJsonManager()->GetSDL_RectOf(PARKING_DOOR), 10.75f);
+	App->GetModuleRender()->Blit(graphicsStage1, 0, 0, App->GetModuleJsonManager()->GetSDL_RectOf(BACKGROUND), 10.75f);
+	
+
+
 
 	return UPDATE_CONTINUE;
 }

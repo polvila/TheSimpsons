@@ -16,7 +16,7 @@ public:
 	bool Init() override;
 	bool CleanUp() override;
 
-	SDL_Texture* const Load(const char* path);
+	SDL_Texture* const Load(const char* path, SDL_Color* transparentPixelColor);
 	void Unload(SDL_Texture* texture);
 	
 private:
