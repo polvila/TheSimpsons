@@ -59,7 +59,8 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 {
 	SDL_Rect rect = {};
 	SetRect(&rect, texture, x, y, section, speed);
-	return TryToBlitToScreen(texture, section, rect);
+	//TODO: Add a PriorityQueueElement to priorty element and call the next method on Update for each element
+	return true;//TryToBlitToScreen(texture, section, rect);
 }
 
 void ModuleRender::SetRect(SDL_Rect* rect, SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed) const

@@ -4,10 +4,22 @@
 #include "Module.h"
 #include "Globals.h"
 #include "SDL/include/SDL.h"
+#include <queue>
 
 struct SDL_Texture;
 struct SDL_Renderer;
 struct SDL_Rect;
+
+struct PriorityQueueElement {
+	int z;
+	SDL_Rect* section;
+	SDL_Rect rect;
+
+	bool operator<(const PriorityQueueElement& nextElement) const
+	{
+		return z < nextElement.z;
+	}
+};
 
 class ModuleRender : public Module
 {
@@ -41,6 +53,8 @@ private:
 
 	SDL_Renderer* renderer = nullptr;
 	SDL_Rect camera;
+
+	std::priority_queue<PriorityQueueElement> priorityQueue;
 };
 
 #endif // __MODULERENDER_H__
