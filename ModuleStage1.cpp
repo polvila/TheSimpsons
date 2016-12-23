@@ -38,10 +38,31 @@ bool ModuleStage1::CleanUp()
 
 update_status ModuleStage1::Update()
 {
-	App->GetModuleRender()->Blit(graphicsStage1, 0, 0, App->GetModuleJsonManager()->GetSDL_RectOf(FOREGROUND), 10.75f);
-	App->GetModuleRender()->Blit(graphicsStage1, 1041, 16, App->GetModuleJsonManager()->GetSDL_RectOf(PARKING_DOOR), 10.75f);
-	App->GetModuleRender()->Blit(graphicsStage1, 0, 0, App->GetModuleJsonManager()->GetSDL_RectOf(BACKGROUND), 10.75f);
+	//Background
+	App->GetModuleRender()->Blit(graphicsStage1, 0, 0, 10, App->GetModuleJsonManager()->GetSDL_RectOf(BACKGROUND), 10.75f);
+	//Foreground
+	App->GetModuleRender()->Blit(graphicsStage1, 0, 0, 8, App->GetModuleJsonManager()->GetSDL_RectOf(FOREGROUND), 10.75f);
 	
+	//Doors
+	App->GetModuleRender()->Blit(graphicsStage1, 1041, 16, 7, App->GetModuleJsonManager()->GetSDL_RectOf(PARKING_DOOR), 10.75f);
+	App->GetModuleRender()->Blit(graphicsStage1, 336, 80, 7, App->GetModuleJsonManager()->GetSDL_RectOf(DOOR1), 10.75f);
+	App->GetModuleRender()->Blit(graphicsStage1, 520, 96, 7, App->GetModuleJsonManager()->GetSDL_RectOf(DOOR2), 10.75f);
+	App->GetModuleRender()->Blit(graphicsStage1, 723, 83, 7, App->GetModuleJsonManager()->GetSDL_RectOf(DOOR3), 10.75f);
+
+	//Fence
+	App->GetModuleRender()->Blit(graphicsStage1, 768, 80, 7, App->GetModuleJsonManager()->GetSDL_RectOf(FENCE), 10.75f);
+	App->GetModuleRender()->Blit(graphicsStage1, 832, 80, 7, App->GetModuleJsonManager()->GetSDL_RectOf(FENCE), 10.75f);
+	App->GetModuleRender()->Blit(graphicsStage1, 896, 80, 7, App->GetModuleJsonManager()->GetSDL_RectOf(FENCE), 10.75f);
+
+	//Streetlights
+	App->GetModuleRender()->Blit(graphicsStage1, 226, 69, 2, App->GetModuleJsonManager()->GetSDL_RectOf(STREETLIGHT), 10.75f);
+	App->GetModuleRender()->Blit(graphicsStage1, 450, 69, 2, App->GetModuleJsonManager()->GetSDL_RectOf(STREETLIGHT), 10.75f);
+	App->GetModuleRender()->Blit(graphicsStage1, 1330, -67, 7, App->GetModuleJsonManager()->GetSDL_RectOf(STREETLIGHT), 10.75f);
+	App->GetModuleRender()->Blit(graphicsStage1, 1642, -67, 7, App->GetModuleJsonManager()->GetSDL_RectOf(STREETLIGHT), 10.75f);
+
+	//Tree
+	App->GetModuleRender()->Blit(graphicsStage1, 1240, 32, 7, App->GetModuleJsonManager()->GetSDL_RectOf(TREE1), 10.75f);
+
 
 
 

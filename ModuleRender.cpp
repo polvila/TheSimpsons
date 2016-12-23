@@ -33,6 +33,16 @@ update_status ModuleRender::PreUpdate()
 // Called every draw update
 update_status ModuleRender::Update()
 {
+	if(!priorityQueue.empty())
+	{
+		int size = priorityQueue.size();
+		for(int i = 0; i < size; i++)
+		{	
+			PriorityQueueElement priorityQueueElement = priorityQueue.top();
+			priorityQueue.pop();
+			TryToBlitToScreen(priorityQueueElement.texture, priorityQueueElement.section, priorityQueueElement.rect);
+		}
+	}
 	HandleDebugCamera();
 	return UPDATE_CONTINUE;
 }
@@ -55,12 +65,12 @@ bool ModuleRender::CleanUp()
 }
 
 // Blit to screen
-bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed) const
+void ModuleRender::Blit(SDL_Texture* texture, int x, int y, int z, SDL_Rect* section, float speed)
 {
 	SDL_Rect rect = {};
 	SetRect(&rect, texture, x, y, section, speed);
-	//TODO: Add a PriorityQueueElement to priorty element and call the next method on Update for each element
-	return true;//TryToBlitToScreen(texture, section, rect);
+	PriorityQueueElement priorityQueueElement = {texture, z, section, rect};
+	priorityQueue.push(priorityQueueElement);
 }
 
 void ModuleRender::SetRect(SDL_Rect* rect, SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed) const

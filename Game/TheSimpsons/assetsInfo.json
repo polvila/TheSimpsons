@@ -9,13 +9,13 @@
         "a": 1
       },
       "elements": {
-        "background": {
+        "foreground": {
           "x": 4,
           "y": 4,
           "w": 1664,
           "h": 256
         },
-        "foreground": {
+        "background": {
           "x": 4,
           "y": 264,
           "w": 1664,
@@ -36,8 +36,8 @@
         "door3": {
           "x": 636,
           "y": 706,
-          "w": 64,
-          "h": 63
+          "w": 34,
+          "h": 61
         },
         "fence": {
           "x": 765,

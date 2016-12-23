@@ -11,11 +11,12 @@ struct SDL_Renderer;
 struct SDL_Rect;
 
 struct PriorityQueueElement {
+	SDL_Texture* texture;
 	int z;
 	SDL_Rect* section;
 	SDL_Rect rect;
 
-	bool operator<(const PriorityQueueElement& nextElement) const
+	bool operator<(PriorityQueueElement nextElement) const
 	{
 		return z < nextElement.z;
 	}
@@ -33,12 +34,12 @@ public:
 	update_status PostUpdate() override;
 	bool CleanUp() override;
 
-	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed = 1.0f) const;
+	void Blit(SDL_Texture* texture, int x, int y, int z, SDL_Rect* section, float speed = 1.0f);
 	void SetRect(SDL_Rect* rect, SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed) const;
 	SDL_Rect GetCamera() const;
 	SDL_Renderer* GetRenderer() const;
 	void SetCameraPosition(int x, int y);
-
+	
 private:
 
 	static Uint32 GetFlagsWithVsync(bool active);
