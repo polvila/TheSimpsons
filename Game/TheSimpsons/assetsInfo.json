@@ -353,14 +353,14 @@
       }
     },
     "npc": {
-      "path": "TheSimpsons/npc.png",
-      "transparentPixelColor" : {
-        "r": 86,
-        "g": 177,
-        "b": 222,
-        "a": 1
-      },
-      "elements": {
+      "path": "TheSimpsons/npc.png", 
+      "transparentPixelColor" : { 
+        "r": 86, 
+        "g": 177, 
+        "b": 222, 
+        "a": 1 
+      }, 
+      "elements": { 
         "ladyTop": [
           {
             "x": 7,
@@ -661,7 +661,7 @@
             "y": 208,
             "w": 42,
             "h": 43
-          },
+          }
         ],
         "skinnerIdle1": [
           {
