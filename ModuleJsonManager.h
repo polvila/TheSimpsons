@@ -10,7 +10,8 @@
 enum SimpsonsTexture
 {
 	STAGE1,
-	HOMER
+	HOMER,
+	NPC
 };
 
 enum SimpsonsSprite
@@ -44,6 +45,24 @@ enum SimpsonsAnimation
 	HOMER_WALK,
 	HOMER_WALK_UP,
 	HOMER_ATTACK,
+	LADY_TOP,
+	LADY_DOWN_IDLE,
+	LADY_DOWN_WALK,
+	BIRD_IDLE,
+	BIRD_JUMP,
+	BIRD_CLEAN,
+	BIRD_FLY,
+	HOWIE_FRONT_WALK,
+	HOWIE_WALK,
+	HOWIE_IDLE,
+	HOWIE_JUMP,
+	MARTIN_IDLE,
+	MARTIN_RUN,
+	SKINNER_IDLE1,
+	SKINNER_WALK,
+	SKINNER_IDLE2,
+	SKINNER_RUN,
+	HAMSTER
 };
 
 class ModuleJsonManager : public Module
@@ -80,8 +99,11 @@ private:
 	JSON_Object* textures = nullptr;
 	JSON_Object* stage1 = nullptr;
 	JSON_Object* homer = nullptr;
+	JSON_Object* npc = nullptr;
+
 	JSON_Object* stage1Elements = nullptr;
 	JSON_Object* homerElements = nullptr;
+	JSON_Object* npcElements = nullptr;
 
 	const char* inputFile = "TheSimpsons/assetsInfo.json";
 };

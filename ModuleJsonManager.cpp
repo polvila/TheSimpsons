@@ -15,10 +15,14 @@ bool ModuleJsonManager::Init()
 	textures = json_object_get_object(assetsInfo, "textures");
 	stage1 = json_object_get_object(textures, "stage1");
 	homer = json_object_get_object(textures, "homer");
+	npc = json_object_get_object(textures, "npc");
+
 	stage1Elements = json_object_get_object(stage1, "elements");
 	homerElements = json_object_get_object(homer, "elements");
+	npcElements = json_object_get_object(npc, "elements");
 
-	if(stage1Elements != nullptr && homerElements != nullptr)
+	if(stage1Elements != nullptr && homerElements != nullptr &&
+		npcElements != nullptr)
 	{
 		FillTextureMap();
 		FillSpritesMap();
@@ -70,6 +74,7 @@ void ModuleJsonManager::FillTextureMap()
 {
 	texturePathsMap[STAGE1] = const_cast<char*>(json_object_get_string(stage1, "path"));
 	texturePathsMap[HOMER] = const_cast<char*>(json_object_get_string(homer, "path"));
+	texturePathsMap[NPC] = const_cast<char*>(json_object_get_string(npc, "path"));
 }
 
 void ModuleJsonManager::FillSpritesMap()
@@ -102,12 +107,31 @@ void ModuleJsonManager::FillAnimationsMap()
 	FillAnimationFrom(animationsMap[HOMER_WALK] = new Animation(), homerElements, "walk");
 	FillAnimationFrom(animationsMap[HOMER_WALK_UP] = new Animation(), homerElements, "walkUp");
 	FillAnimationFrom(animationsMap[HOMER_ATTACK] = new Animation(), homerElements, "attack");
+	FillAnimationFrom(animationsMap[LADY_TOP] = new Animation(), npcElements, "ladyTop");
+	FillAnimationFrom(animationsMap[LADY_DOWN_IDLE] = new Animation(), npcElements, "ladyDownIdle");
+	FillAnimationFrom(animationsMap[LADY_DOWN_WALK] = new Animation(), npcElements, "ladyDownWalk");
+	FillAnimationFrom(animationsMap[BIRD_IDLE] = new Animation(), npcElements, "birdIdle");
+	FillAnimationFrom(animationsMap[BIRD_JUMP] = new Animation(), npcElements, "birdJump");
+	FillAnimationFrom(animationsMap[BIRD_CLEAN] = new Animation(), npcElements, "birdClean");
+	FillAnimationFrom(animationsMap[BIRD_FLY] = new Animation(), npcElements, "birdFly");
+	FillAnimationFrom(animationsMap[HOWIE_FRONT_WALK] = new Animation(), npcElements, "howieFrontWalk");
+	FillAnimationFrom(animationsMap[HOWIE_WALK] = new Animation(), npcElements, "howieWalk");
+	FillAnimationFrom(animationsMap[HOWIE_IDLE] = new Animation(), npcElements, "howieIdle");
+	FillAnimationFrom(animationsMap[HOWIE_JUMP] = new Animation(), npcElements, "howieJump");
+	FillAnimationFrom(animationsMap[MARTIN_IDLE] = new Animation(), npcElements, "martinIdle");
+	FillAnimationFrom(animationsMap[MARTIN_RUN] = new Animation(), npcElements, "martinRun");
+	FillAnimationFrom(animationsMap[SKINNER_IDLE1] = new Animation(), npcElements, "skinnerIdle1");
+	FillAnimationFrom(animationsMap[SKINNER_WALK] = new Animation(), npcElements, "skinnerWalk");
+	FillAnimationFrom(animationsMap[SKINNER_IDLE2] = new Animation(), npcElements, "skinnerIdle2");
+	FillAnimationFrom(animationsMap[SKINNER_RUN] = new Animation(), npcElements, "skinnerRun");
+	FillAnimationFrom(animationsMap[HAMSTER] = new Animation(), npcElements, "hamster");
 }
 
 void ModuleJsonManager::FillTransparentPixelColorsMap()
 {
 	FillTransparentPixelColorFrom(transparentPixelColorsMap[STAGE1] = new SDL_Color(), stage1);
 	FillTransparentPixelColorFrom(transparentPixelColorsMap[HOMER] = new SDL_Color(), homer);
+	FillTransparentPixelColorFrom(transparentPixelColorsMap[NPC] = new SDL_Color(), npc);
 }
 
 void ModuleJsonManager::FillSDL_RectFrom(SDL_Rect* sdlRect, const JSON_Object* jsonObject, const char* name)
