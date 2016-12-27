@@ -12,6 +12,7 @@ class ModuleInput;
 class ModuleAudio;
 class ModuleJsonManager;
 class ModuleStage1;
+class ModulePlayer;
 
 class Application
 {
@@ -31,6 +32,7 @@ public:
 	ModuleAudio* GetModuleAudio() const;
 	ModuleJsonManager* GetModuleJsonManager() const;
 	ModuleStage1* GetModuleStage1() const;
+	ModulePlayer* GetModulePlayer() const;
 private:
 
 	ModuleInput* input;
@@ -40,6 +42,7 @@ private:
 	ModuleAudio* audio;
 	ModuleJsonManager* jsonManager;
 	ModuleStage1* stage1;
+	ModulePlayer* player;
 
 
 	std::list<Module*> modules;

@@ -40,7 +40,7 @@ update_status ModuleRender::Update()
 		{	
 			PriorityQueueElement priorityQueueElement = priorityQueue.top();
 			priorityQueue.pop();
-			TryToBlitToScreen(priorityQueueElement.texture, priorityQueueElement.section, priorityQueueElement.rect);
+			TryToBlitToScreen(priorityQueueElement.texture, priorityQueueElement.section, priorityQueueElement.rect, priorityQueueElement.flipType);
 		}
 	}
 	HandleDebugCamera();
@@ -65,11 +65,11 @@ bool ModuleRender::CleanUp()
 }
 
 // Blit to screen
-void ModuleRender::Blit(SDL_Texture* texture, int x, int y, int z, SDL_Rect* section, float speed)
+void ModuleRender::Blit(SDL_Texture* texture, int x, int y, int z, SDL_Rect* section, float speed, SDL_RendererFlip flipType)
 {
 	SDL_Rect rect = {};
 	SetRect(&rect, texture, x, y, section, speed);
-	PriorityQueueElement priorityQueueElement = {texture, z, section, rect};
+	PriorityQueueElement priorityQueueElement = {texture, z, section, rect, flipType};
 	priorityQueue.push(priorityQueueElement);
 }
 
@@ -158,9 +158,9 @@ void ModuleRender::SetRectSizeProportionalToScreenSize(SDL_Rect* rect)
 	rect->h *= SCREEN_SIZE;
 }
 
-bool ModuleRender::TryToBlitToScreen(SDL_Texture* texture, SDL_Rect* section, SDL_Rect rect) const
+bool ModuleRender::TryToBlitToScreen(SDL_Texture* texture, SDL_Rect* section, SDL_Rect rect, SDL_RendererFlip flipType) const
 {
-	if (SDL_RenderCopy(renderer, texture, section, &rect) != 0)
+	if (SDL_RenderCopyEx(renderer, texture, section, &rect, 0, nullptr, flipType) != 0)
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		return false;

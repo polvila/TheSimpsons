@@ -6,6 +6,7 @@
 #include "ModuleAudio.h"
 #include "ModuleJsonManager.h"
 #include "ModuleStage1.h"
+#include "ModulePlayer.h"
 
 using namespace std;
 
@@ -23,6 +24,7 @@ Application::Application()
 
 	// Game Modules
 	modules.push_back(stage1 = new ModuleStage1());
+	modules.push_back(player = new ModulePlayer());
 }
 
 Application::~Application()
@@ -110,4 +112,9 @@ ModuleJsonManager* Application::GetModuleJsonManager() const
 ModuleStage1* Application::GetModuleStage1() const
 {
 	return stage1;
+}
+
+ModulePlayer* Application::GetModulePlayer() const
+{
+	return player;
 }
