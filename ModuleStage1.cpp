@@ -20,9 +20,15 @@ bool ModuleStage1::Start()
 	LOG("Loading Stage 1");
 
 	graphicsStage1 = App->GetModuleTextures()->Load(
-		                    App->GetModuleJsonManager()->GetTexturePathOf(STAGE1),
-		                    App->GetModuleJsonManager()->GetTransparentPixelColor(STAGE1)
-	                    );
+		App->GetModuleJsonManager()->GetTexturePathOf(STAGE1),
+		App->GetModuleJsonManager()->GetTransparentPixelColor(STAGE1)
+	);
+
+	graphicsNpc = App->GetModuleTextures()->Load(
+		App->GetModuleJsonManager()->GetTexturePathOf(NPC),
+		App->GetModuleJsonManager()->GetTransparentPixelColor(NPC)
+	);
+
 	return true;
 }
 
@@ -63,7 +69,8 @@ update_status ModuleStage1::Update()
 	//Tree
 	App->GetModuleRender()->Blit(graphicsStage1, 1240, 32, 7, App->GetModuleJsonManager()->GetSDL_RectOf(TREE1), 10.75f);
 
-
+	//Hamster
+	App->GetModuleRender()->Blit(graphicsNpc, 646, 102, 7, &App->GetModuleJsonManager()->GetAnimationOf(HAMSTER)->GetCurrentFrame(), 10.75f);
 
 
 	return UPDATE_CONTINUE;

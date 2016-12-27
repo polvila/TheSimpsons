@@ -18,6 +18,7 @@ public:
 
 
 	SDL_Texture* graphicsStage1 = nullptr;
+	SDL_Texture* graphicsNpc = nullptr;
 
 private:
 	JSON_Value* root_value;
