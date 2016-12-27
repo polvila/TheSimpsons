@@ -98,6 +98,7 @@ void ModuleJsonManager::FillSpritesMap()
 	FillSDL_RectFrom(spritesMap[TREE1] = new SDL_Rect(), stage1Elements, "tree1");
 	FillSDL_RectFrom(spritesMap[TREE2] = new SDL_Rect(), stage1Elements, "tree2");
 	FillSDL_RectFrom(spritesMap[HOMER_IDLE] = new SDL_Rect(), homerElements, "idle");
+	FillSDL_RectFrom(spritesMap[HOWIE_JUMP] = new SDL_Rect(), npcElements, "howieJump");
 }
 
 void ModuleJsonManager::FillAnimationsMap()
@@ -117,7 +118,6 @@ void ModuleJsonManager::FillAnimationsMap()
 	FillAnimationFrom(animationsMap[HOWIE_FRONT_WALK] = new Animation(), npcElements, "howieFrontWalk");
 	FillAnimationFrom(animationsMap[HOWIE_WALK] = new Animation(), npcElements, "howieWalk");
 	FillAnimationFrom(animationsMap[HOWIE_IDLE] = new Animation(), npcElements, "howieIdle");
-	FillAnimationFrom(animationsMap[HOWIE_JUMP] = new Animation(), npcElements, "howieJump");
 	FillAnimationFrom(animationsMap[MARTIN_IDLE] = new Animation(), npcElements, "martinIdle");
 	FillAnimationFrom(animationsMap[MARTIN_RUN] = new Animation(), npcElements, "martinRun");
 	FillAnimationFrom(animationsMap[SKINNER_IDLE1] = new Animation(), npcElements, "skinnerIdle1");
@@ -158,7 +158,7 @@ void ModuleJsonManager::FillAnimationFrom(Animation* animation, const JSON_Objec
 {
 	JSON_Object* frameCoordinates;
 	JSON_Array* framesCoordinates = json_object_get_array(jsonObject, name);
-	for (size_t i = 0; i < json_array_get_count(framesCoordinates); i++)
+	for (size_t i = 0; i < json_array_get_count(framesCoordinates)-1; i++)
 	{
 		frameCoordinates = json_array_get_object(framesCoordinates, i);
 		SDL_Rect sdlRect;
@@ -180,6 +180,7 @@ void ModuleJsonManager::FillAnimationFrom(Animation* animation, const JSON_Objec
 		));
 		animation->frames.push_back(sdlRect);
 	}
+	animation->speed = static_cast<float>(json_object_get_number(json_array_get_object(framesCoordinates, json_array_get_count(framesCoordinates)-1), "speed"));
 }
 
 void ModuleJsonManager::FillTransparentPixelColorFrom(SDL_Color* color, const JSON_Object* jsonObject)

@@ -35,6 +35,7 @@ enum SimpsonsSprite
 	TREE1,
 	TREE2,
 	HOMER_IDLE,
+	HOWIE_JUMP,
 	COUNT
 };
 
@@ -55,7 +56,6 @@ enum SimpsonsAnimation
 	HOWIE_FRONT_WALK,
 	HOWIE_WALK,
 	HOWIE_IDLE,
-	HOWIE_JUMP,
 	MARTIN_IDLE,
 	MARTIN_RUN,
 	SKINNER_IDLE1,
