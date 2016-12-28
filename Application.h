@@ -4,12 +4,15 @@
 #include <list>
 #include "Globals.h"
 #include "Module.h"
-#include "ModuleTextures.h"
-#include "ModuleAudio.h"
 
 class ModuleRender;
 class ModuleWindow;
+class ModuleTextures;
 class ModuleInput;
+class ModuleAudio;
+class ModuleJsonManager;
+class ModuleStage1;
+class ModulePlayer;
 
 class Application
 {
@@ -27,6 +30,9 @@ public:
 	ModuleRender* GetModuleRender() const;
 	ModuleTextures* GetModuleTextures() const;
 	ModuleAudio* GetModuleAudio() const;
+	ModuleJsonManager* GetModuleJsonManager() const;
+	ModuleStage1* GetModuleStage1() const;
+	ModulePlayer* GetModulePlayer() const;
 private:
 
 	ModuleInput* input;
@@ -34,8 +40,10 @@ private:
 	ModuleRender* renderer;
 	ModuleTextures* textures;
 	ModuleAudio* audio;
-	
-	
+	ModuleJsonManager* jsonManager;
+	ModuleStage1* stage1;
+	ModulePlayer* player;
+
 
 	std::list<Module*> modules;
 };

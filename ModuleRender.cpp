@@ -3,7 +3,6 @@
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
-#include "SDL/include/SDL.h"
 
 ModuleRender::ModuleRender()
 {
@@ -34,6 +33,16 @@ update_status ModuleRender::PreUpdate()
 // Called every draw update
 update_status ModuleRender::Update()
 {
+	if(!priorityQueue.empty())
+	{
+		int size = priorityQueue.size();
+		for(int i = 0; i < size; i++)
+		{	
+			PriorityQueueElement priorityQueueElement = priorityQueue.top();
+			priorityQueue.pop();
+			TryToBlitToScreen(priorityQueueElement.texture, priorityQueueElement.section, priorityQueueElement.rect, priorityQueueElement.flipType);
+		}
+	}
 	HandleDebugCamera();
 	return UPDATE_CONTINUE;
 }
@@ -56,18 +65,19 @@ bool ModuleRender::CleanUp()
 }
 
 // Blit to screen
-bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed) const
+void ModuleRender::Blit(SDL_Texture* texture, int x, int y, int z, SDL_Rect* section, float speed, SDL_RendererFlip flipType)
 {
 	SDL_Rect rect = {};
-	SetRect(rect, texture, x, y, section, speed);
-	return TryToBlitToScreen(texture, section, rect);
+	SetRect(&rect, texture, x, y, section, speed);
+	PriorityQueueElement priorityQueueElement = {texture, z, section, rect, flipType};
+	priorityQueue.push(priorityQueueElement);
 }
 
-void ModuleRender::SetRect(SDL_Rect rect, SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed) const
+void ModuleRender::SetRect(SDL_Rect* rect, SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed) const
 {
-	SetRectPosition(&rect, x, y, speed);
+	SetRectPosition(rect, x, y, speed);
 	TryToSetRectSize(rect, texture, section);
-	SetRectSizeProportionalToScreenSize(&rect);
+	SetRectSizeProportionalToScreenSize(rect);
 }
 
 SDL_Rect ModuleRender::GetCamera() const
@@ -83,7 +93,7 @@ SDL_Renderer* ModuleRender::GetRenderer() const
 void ModuleRender::SetCameraPosition(int x, int y)
 {
 	camera.x = x;
-	camera.y = x;
+	camera.y = y;
 }
 
 Uint32 ModuleRender::GetFlagsWithVsync(bool active)
@@ -128,29 +138,29 @@ void ModuleRender::SetRectPosition(SDL_Rect* rect, int x, int y, float speed) co
 	rect->y = static_cast<int>(camera.y * speed) + y * SCREEN_SIZE;
 }
 
-void ModuleRender::TryToSetRectSize(SDL_Rect rect, SDL_Texture* texture, SDL_Rect* section) const
+void ModuleRender::TryToSetRectSize(SDL_Rect* rect, SDL_Texture* texture, SDL_Rect* section)
 {
 	if (section != NULL)
-		SetRectSize(&rect, section->w, section->h);
+		SetRectSize(rect, section->w, section->h);
 	else
-		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+		SDL_QueryTexture(texture, NULL, NULL, &rect->w, &rect->h);
 }
 
-void ModuleRender::SetRectSize(SDL_Rect* rect, int w, int h) const
+void ModuleRender::SetRectSize(SDL_Rect* rect, int w, int h)
 {
 	rect->w = w;
 	rect->h = h;
 }
 
-void ModuleRender::SetRectSizeProportionalToScreenSize(SDL_Rect* rect) const
+void ModuleRender::SetRectSizeProportionalToScreenSize(SDL_Rect* rect)
 {
 	rect->w *= SCREEN_SIZE;
 	rect->h *= SCREEN_SIZE;
 }
 
-bool ModuleRender::TryToBlitToScreen(SDL_Texture* texture, SDL_Rect* section, SDL_Rect rect) const
+bool ModuleRender::TryToBlitToScreen(SDL_Texture* texture, SDL_Rect* section, SDL_Rect rect, SDL_RendererFlip flipType) const
 {
-	if (SDL_RenderCopy(renderer, texture, section, &rect) != 0)
+	if (SDL_RenderCopyEx(renderer, texture, section, &rect, 0, nullptr, flipType) != 0)
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		return false;

@@ -40,7 +40,7 @@ bool ModuleTextures::CleanUp()
 }
 
 // Load new texture from file path
-SDL_Texture* const ModuleTextures::Load(const char* path)
+SDL_Texture* const ModuleTextures::Load(const char* path, SDL_Color* transparentPixelColor)
 {
 	SDL_Texture* texture = nullptr;
 	SDL_Surface* surface = IMG_Load(path);
@@ -48,7 +48,14 @@ SDL_Texture* const ModuleTextures::Load(const char* path)
 	if (surface == nullptr)
 		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError())
 	else
-		TryToCreateTextureFromSurface(texture, surface);
+	{
+		Uint32 transparentPixel = SDL_MapRGB(surface->format, 
+			transparentPixelColor->r, transparentPixelColor->g, transparentPixelColor->b);
+		SDL_SetColorKey(surface, SDL_TRUE, transparentPixel);
+
+		TryToCreateTextureFromSurface(&texture, surface);
+	}
+		
 	return texture;
 }
 
@@ -77,14 +84,14 @@ bool ModuleTextures::AssertLoadPngSupport() const
 	return true;
 }
 
-void ModuleTextures::TryToCreateTextureFromSurface(SDL_Texture* texture, SDL_Surface* surface)
+void ModuleTextures::TryToCreateTextureFromSurface(SDL_Texture** texture, SDL_Surface* surface)
 {
-	texture = SDL_CreateTextureFromSurface(App->GetModuleRender()->GetRenderer(), surface);
+	*texture = SDL_CreateTextureFromSurface(App->GetModuleRender()->GetRenderer(), surface);
 
 	if (texture == nullptr)
 		LOG("Unable to create texture from surface! SDL Error: %s\n", SDL_GetError())
 	else
-		textures.push_back(texture);
+		textures.push_back(*texture);
 
 	SDL_FreeSurface(surface);
 }

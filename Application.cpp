@@ -4,6 +4,9 @@
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
+#include "ModuleJsonManager.h"
+#include "ModuleStage1.h"
+#include "ModulePlayer.h"
 
 using namespace std;
 
@@ -16,6 +19,12 @@ Application::Application()
 	modules.push_back(renderer = new ModuleRender());
 	modules.push_back(textures = new ModuleTextures());
 	modules.push_back(audio = new ModuleAudio());
+
+	modules.push_back(jsonManager = new ModuleJsonManager());
+
+	// Game Modules
+	modules.push_back(stage1 = new ModuleStage1());
+	modules.push_back(player = new ModulePlayer());
 }
 
 Application::~Application()
@@ -93,4 +102,19 @@ ModuleTextures* Application::GetModuleTextures() const
 ModuleAudio* Application::GetModuleAudio() const
 {
 	return audio;
+}
+
+ModuleJsonManager* Application::GetModuleJsonManager() const
+{
+	return jsonManager;
+}
+
+ModuleStage1* Application::GetModuleStage1() const
+{
+	return stage1;
+}
+
+ModulePlayer* Application::GetModulePlayer() const
+{
+	return player;
 }

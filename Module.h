@@ -3,6 +3,8 @@
 
 #include "Globals.h"
 
+class Application;
+
 class Module
 {
 public:
