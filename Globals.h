@@ -35,11 +35,13 @@ enum update_status
 	 }
 
 // Configuration -----------
-#define SCREEN_WIDTH 384
-#define SCREEN_HEIGHT 224
+#define SCREEN_WIDTH 290
+#define SCREEN_HEIGHT 220
 #define SCREEN_SIZE 2
 #define FULLSCREEN false
 #define VSYNC true
 #define TITLE "The Simpsons Arcade Game"
+
+#define CAMERA_VELOCITY 5.75f
 
 #endif //__GLOBALS_H__

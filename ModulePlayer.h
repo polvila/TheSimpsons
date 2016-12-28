@@ -18,6 +18,7 @@ public:
 private:
 	SDL_Texture* graphics = nullptr;
 	iPoint position;
+	int layer;
 };
 
 #endif // __MODULEPLAYER_H__

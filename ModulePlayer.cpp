@@ -7,8 +7,9 @@
 
 ModulePlayer::ModulePlayer(bool start_enabled)
 {
-	position.x = 100;
-	position.y = 100;
+	position.x = 68;
+	position.y = 144;
+	layer = 5;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -41,18 +42,18 @@ update_status ModulePlayer::Update()
 	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		position.x += 1;
-		App->GetModuleRender()->Blit(graphics, position.x, position.y, 5,
-			&App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK)->GetCurrentFrame(), 10.75f);
+		App->GetModuleRender()->Blit(graphics, position.x, position.y, layer,
+			&App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK)->GetCurrentFrame(), CAMERA_VELOCITY);
 	}
 	else if (App->GetModuleInput()->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		position.x -= 1;
-		App->GetModuleRender()->Blit(graphics, position.x, position.y, 5,
-			&App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK)->GetCurrentFrame(), 10.75f, SDL_FLIP_HORIZONTAL);
+		App->GetModuleRender()->Blit(graphics, position.x, position.y, layer,
+			&App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK)->GetCurrentFrame(), CAMERA_VELOCITY, SDL_FLIP_HORIZONTAL);
 	}
 	else
-		App->GetModuleRender() ->Blit(graphics, position.x, position.y, 5, 
-			App->GetModuleJsonManager()->GetSDL_RectOf(HOMER_IDLE), 10.75f);
+		App->GetModuleRender() ->Blit(graphics, position.x, position.y, layer, 
+			App->GetModuleJsonManager()->GetSDL_RectOf(HOMER_IDLE), CAMERA_VELOCITY);
 
 
 	return UPDATE_CONTINUE;
