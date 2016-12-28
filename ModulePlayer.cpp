@@ -42,17 +42,17 @@ update_status ModulePlayer::Update()
 	{
 		position.x += 1;
 		App->GetModuleRender()->Blit(graphics, position.x, position.y, 5,
-			&App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK)->GetCurrentFrame(), 0.75f);
+			&App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK)->GetCurrentFrame(), 10.75f);
 	}
 	else if (App->GetModuleInput()->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		position.x -= 1;
 		App->GetModuleRender()->Blit(graphics, position.x, position.y, 5,
-			&App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK)->GetCurrentFrame(), 0.75f, SDL_FLIP_HORIZONTAL); 
+			&App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK)->GetCurrentFrame(), 10.75f, SDL_FLIP_HORIZONTAL);
 	}
 	else
 		App->GetModuleRender() ->Blit(graphics, position.x, position.y, 5, 
-			App->GetModuleJsonManager()->GetSDL_RectOf(HOMER_IDLE), 0.75f);
+			App->GetModuleJsonManager()->GetSDL_RectOf(HOMER_IDLE), 10.75f);
 
 
 	return UPDATE_CONTINUE;
