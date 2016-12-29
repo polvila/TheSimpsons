@@ -6,7 +6,7 @@
 
 ModuleRender::ModuleRender()
 {
-	camera.x = camera.y = -5;
+	camera.x = camera.y = CAMERA_ORIGIN_OFFSET;
 	camera.w = SCREEN_WIDTH * SCREEN_SIZE;
 	camera.h = SCREEN_HEIGHT* SCREEN_SIZE;
 }
