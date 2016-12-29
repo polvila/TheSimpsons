@@ -16,9 +16,12 @@ public:
 	bool CleanUp() override;
 
 private:
+
+	void SetBlitCoordinates(iPoint &blitCoordinates, SDL_Rect* rectToBlit) const;
+
 	SDL_Texture* graphics = nullptr;
 	iPoint position;
-	int layer;
+	int layer = 0;
 };
 
 #endif // __MODULEPLAYER_H__
