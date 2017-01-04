@@ -22,6 +22,7 @@ private:
 	SDL_Texture* graphics = nullptr;
 	iPoint position;
 	int layer = 0;
+	bool lookingRight = true;
 };
 
 #endif // __MODULEPLAYER_H__

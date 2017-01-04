@@ -7,8 +7,8 @@
 
 ModulePlayer::ModulePlayer(bool start_enabled)
 {
-	position.x = 68;
-	position.y = 144;
+	position.x = 80;
+	position.y = 208;
 	layer = 5;
 }
 
@@ -43,27 +43,29 @@ update_status ModulePlayer::Update()
 	SDL_Rect* currentFrame;
 	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
-		position.x += 1;
+		position.x += 2;
 		currentFrame = &App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK)->GetCurrentFrame();
 		SetBlitCoordinates(blitCoordinates, currentFrame);
 		App->GetModuleRender()->Blit(graphics, blitCoordinates.x, blitCoordinates.y, layer,
 			currentFrame, CAMERA_VELOCITY);
+		lookingRight = true;
 	}
 	else if (App->GetModuleInput()->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
-		position.x -= 1;
+		position.x -= 2;
 		currentFrame = &App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK)->GetCurrentFrame();
 		SetBlitCoordinates(blitCoordinates, currentFrame);
 		App->GetModuleRender()->Blit(graphics, blitCoordinates.x, blitCoordinates.y, layer,
-			&App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK)->GetCurrentFrame(), CAMERA_VELOCITY, SDL_FLIP_HORIZONTAL);
+			currentFrame, CAMERA_VELOCITY, SDL_FLIP_HORIZONTAL);
+		lookingRight = false;
 	}
 	else
 	{
-		currentFrame = &App->GetModuleJsonManager()->GetAnimationOf(HOMER_YAWN)->GetCurrentFrame();
+		currentFrame = App->GetModuleJsonManager()->GetSDL_RectOf(HOMER_IDLE);
 		SetBlitCoordinates(blitCoordinates, currentFrame);
 
 		App->GetModuleRender()->Blit(graphics, blitCoordinates.x, blitCoordinates.y, layer,
-			currentFrame, CAMERA_VELOCITY);
+			currentFrame, CAMERA_VELOCITY, !lookingRight? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 	}
 
 	return UPDATE_CONTINUE;
