@@ -20,6 +20,7 @@ private:
 	void SetBlitCoordinates(iPoint &blitCoordinates, SDL_Rect* rectToBlit) const;
 
 	SDL_Texture* graphics = nullptr;
+	Animation* currentAnimation = nullptr;
 	iPoint position;
 	int layer = 0;
 	bool lookingRight = true;
