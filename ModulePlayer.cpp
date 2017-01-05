@@ -40,7 +40,7 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update()
 {
 	iPoint blitCoordinates = {};
-	SDL_Rect* currentFrame = App->GetModuleJsonManager()->GetSDL_RectOf(HOMER_IDLE);
+	SDL_Rect* currentFrame = nullptr;
 	int speed = 2;
 
 	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_D) == KEY_REPEAT &&
@@ -48,12 +48,7 @@ update_status ModulePlayer::Update()
 	{
 		position.x += speed;
 		Animation* walk = App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK);
-		if(currentAnimation != walk)
-		{
-			walk->Reset();
-			currentAnimation = walk;
-		}
-		currentFrame = &currentAnimation->GetCurrentFrame();
+		currentAnimation = walk;
 		lookingRight = true;
 	}
 	
@@ -62,12 +57,7 @@ update_status ModulePlayer::Update()
 	{
 		position.x -= speed;
 		Animation* walk = App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK);
-		if (currentAnimation != walk)
-		{
-			walk->Reset();
-			currentAnimation = walk;
-		}
-		currentFrame = &currentAnimation->GetCurrentFrame();
+		currentAnimation = walk;
 		lookingRight = false;
 	}
 
@@ -76,12 +66,7 @@ update_status ModulePlayer::Update()
 	{
 		position.y += speed;
 		Animation* walk = App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK);
-		if (currentAnimation != walk)
-		{
-			walk->Reset();
-			currentAnimation = walk;
-		}
-		currentFrame = &currentAnimation->GetCurrentFrame();
+		currentAnimation = walk;
 	}
 
 	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_W) == KEY_REPEAT &&
@@ -89,17 +74,19 @@ update_status ModulePlayer::Update()
 	{
 		position.y -= speed;
 		Animation* walkUp = App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK_UP);
-		if (currentAnimation != walkUp)
-		{
-			walkUp->Reset();
-			currentAnimation = walkUp;
-		}
-		currentFrame = &currentAnimation->GetCurrentFrame();
+		currentAnimation = walkUp;
 	}
 
+	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_W) == KEY_IDLE &&
+		App->GetModuleInput()->GetKey(SDL_SCANCODE_S) == KEY_IDLE &&
+		App->GetModuleInput()->GetKey(SDL_SCANCODE_A) == KEY_IDLE &&
+		App->GetModuleInput()->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
+		currentAnimation = App->GetModuleJsonManager()->GetAnimationOf(HOMER_IDLE);
+
+	currentFrame = &currentAnimation->GetCurrentFrame();
 	SetBlitCoordinates(blitCoordinates, currentFrame);
 	App->GetModuleRender()->Blit(graphics, blitCoordinates.x, blitCoordinates.y, layer,
-		currentFrame, CAMERA_VELOCITY, !lookingRight ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+		currentFrame, CAMERA_VELOCITY, lookingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL);
 
 	return UPDATE_CONTINUE;
 }

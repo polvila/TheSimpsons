@@ -10,7 +10,7 @@ using namespace std;
 class Animation
 {
 public:
-	bool loop = false;
+	bool loop = true;
 	float speed = 1.0f;
 	vector<SDL_Rect> frames;
 

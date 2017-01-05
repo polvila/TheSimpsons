@@ -34,7 +34,6 @@ enum SimpsonsSprite
 	CLOUD6,
 	TREE1,
 	TREE2,
-	HOMER_IDLE,
 	HOWIE_JUMP,
 	COUNT
 };
@@ -42,6 +41,7 @@ enum SimpsonsSprite
 enum SimpsonsAnimation
 {
 	LEAVES,
+	HOMER_IDLE,
 	HOMER_YAWN,
 	HOMER_WALK,
 	HOMER_WALK_UP,
