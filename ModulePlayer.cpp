@@ -91,6 +91,11 @@ update_status ModulePlayer::Update()
 	return UPDATE_CONTINUE;
 }
 
+iPoint ModulePlayer::GetPosition() const
+{
+	return position;
+}
+
 void ModulePlayer::SetBlitCoordinates(iPoint &blitCoordinates, SDL_Rect* rectToBlit) const
 {
 	blitCoordinates.x = position.x - (rectToBlit->w / 2);

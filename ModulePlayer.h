@@ -15,6 +15,8 @@ public:
 	update_status Update() override;
 	bool CleanUp() override;
 
+	iPoint GetPosition() const;
+
 private:
 
 	void SetBlitCoordinates(iPoint &blitCoordinates, SDL_Rect* rectToBlit) const;
