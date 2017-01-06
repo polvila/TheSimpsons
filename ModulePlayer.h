@@ -16,15 +16,18 @@ public:
 	bool CleanUp() override;
 
 	iPoint GetPosition() const;
+	int GetRealYPosition() const;
 
 private:
 
 	void SetBlitCoordinates(iPoint &blitCoordinates, SDL_Rect* rectToBlit) const;
+	int CalculeRealYPosition() const;
 
 	SDL_Texture* graphics = nullptr;
 	Animation* currentAnimation = nullptr;
-	iPoint position;
-	int layer = 0;
+	iPoint position = {0,0};
+	float zPosition = 0.0f;
+	int realYPosition = 0;
 	bool lookingRight = true;
 };
 

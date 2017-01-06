@@ -31,7 +31,7 @@ private:
 	void BlitTree() const;
 	void BlitHamster() const;
 
-	void MoveCamera();
+	void MoveCamera() const;
 	static int GetWorldYPosition(float playerPerecentageCameraYMovement);
 	static int GetWorldXPosition(float playerPerecentageCameraXMovement);
 
