@@ -97,19 +97,20 @@ void ModuleJsonManager::FillSpritesMap()
 	FillSDL_RectFrom(spritesMap[CLOUD6] = new SDL_Rect(), stage1Elements, "cloud6");
 	FillSDL_RectFrom(spritesMap[TREE1] = new SDL_Rect(), stage1Elements, "tree1");
 	FillSDL_RectFrom(spritesMap[TREE2] = new SDL_Rect(), stage1Elements, "tree2");
-	FillSDL_RectFrom(spritesMap[HOMER_IDLE] = new SDL_Rect(), homerElements, "idle");
+	//FillSDL_RectFrom(spritesMap[HOMER_IDLE] = new SDL_Rect(), homerElements, "idle");
 	FillSDL_RectFrom(spritesMap[HOWIE_JUMP] = new SDL_Rect(), npcElements, "howieJump");
+	FillSDL_RectFrom(spritesMap[HOWIE_JUMP] = new SDL_Rect(), npcElements, "ladyDownIdle");
 }
 
 void ModuleJsonManager::FillAnimationsMap()
 {
 	FillAnimationFrom(animationsMap[LEAVES] = new Animation(), stage1Elements, "leaves");
+	FillAnimationFrom(animationsMap[HOMER_IDLE] = new Animation(), homerElements, "idle");
 	FillAnimationFrom(animationsMap[HOMER_YAWN] = new Animation(), homerElements, "yawn");
 	FillAnimationFrom(animationsMap[HOMER_WALK] = new Animation(), homerElements, "walk");
 	FillAnimationFrom(animationsMap[HOMER_WALK_UP] = new Animation(), homerElements, "walkUp");
 	FillAnimationFrom(animationsMap[HOMER_ATTACK] = new Animation(), homerElements, "attack");
 	FillAnimationFrom(animationsMap[LADY_TOP] = new Animation(), npcElements, "ladyTop");
-	FillAnimationFrom(animationsMap[LADY_DOWN_IDLE] = new Animation(), npcElements, "ladyDownIdle");
 	FillAnimationFrom(animationsMap[LADY_DOWN_WALK] = new Animation(), npcElements, "ladyDownWalk");
 	FillAnimationFrom(animationsMap[BIRD_IDLE] = new Animation(), npcElements, "birdIdle");
 	FillAnimationFrom(animationsMap[BIRD_JUMP] = new Animation(), npcElements, "birdJump");
@@ -156,31 +157,18 @@ void ModuleJsonManager::FillSDL_RectFrom(SDL_Rect* sdlRect, const JSON_Object* j
 
 void ModuleJsonManager::FillAnimationFrom(Animation* animation, const JSON_Object* jsonObject, const char* name)
 {
-	JSON_Object* frameCoordinates;
-	JSON_Array* framesCoordinates = json_object_get_array(jsonObject, name);
-	for (size_t i = 0; i < json_array_get_count(framesCoordinates)-1; i++)
-	{
-		frameCoordinates = json_array_get_object(framesCoordinates, i);
-		SDL_Rect sdlRect;
-		sdlRect.x = static_cast<int>(json_object_get_number(
-			frameCoordinates,
-			"x"
-		));
-		sdlRect.y = static_cast<int>(json_object_get_number(
-			frameCoordinates,
-			"y"
-		));
-		sdlRect.w = static_cast<int>(json_object_get_number(
-			frameCoordinates,
-			"w"
-		));
-		sdlRect.h = static_cast<int>(json_object_get_number(
-			frameCoordinates,
-			"h"
-		));
-		animation->frames.push_back(sdlRect);
-	}
-	animation->speed = static_cast<float>(json_object_get_number(json_array_get_object(framesCoordinates, json_array_get_count(framesCoordinates)-1), "speed"));
+	
+	JSON_Array* animationInfo = json_object_get_array(jsonObject, name);
+	JSON_Object* frameCoordinates = json_array_get_object(animationInfo, 0);
+	JSON_Object* animationSettings = json_array_get_object(animationInfo, 1);
+	int numFrames = static_cast<int>(json_object_get_number(animationSettings, "frames"));
+	animation->speed = static_cast<float>(json_object_get_number(animationSettings, "speed"));
+
+	SDL_Rect sdlRect;
+	FillSDL_RectWithFrameCoordinates(&sdlRect, frameCoordinates);
+	animation->frames.push_back(sdlRect);
+
+	FillNextSDL_Rects(&sdlRect, numFrames, animation);
 }
 
 void ModuleJsonManager::FillTransparentPixelColorFrom(SDL_Color* color, const JSON_Object* jsonObject)
@@ -204,3 +192,35 @@ void ModuleJsonManager::FillTransparentPixelColorFrom(SDL_Color* color, const JS
 	));
 }
 
+void ModuleJsonManager::FillSDL_RectWithFrameCoordinates(SDL_Rect* sdlRect, JSON_Object* frameCoordinates)
+{
+	sdlRect->x = static_cast<int>(json_object_get_number(
+		frameCoordinates,
+		"x"
+	));
+	sdlRect->y = static_cast<int>(json_object_get_number(
+		frameCoordinates,
+		"y"
+	));
+	sdlRect->w = static_cast<int>(json_object_get_number(
+		frameCoordinates,
+		"w"
+	));
+	sdlRect->h = static_cast<int>(json_object_get_number(
+		frameCoordinates,
+		"h"
+	));
+}
+
+void ModuleJsonManager::FillNextSDL_Rects(SDL_Rect* firstSdlRect, int numFrames, Animation* animation)
+{
+	for (int i = 0; i < numFrames - 1; i++)
+	{
+		SDL_Rect nextSdlRect;
+		nextSdlRect.x = firstSdlRect->x + (firstSdlRect->w * (i+1));
+		nextSdlRect.y = firstSdlRect->y;
+		nextSdlRect.w = firstSdlRect->w;
+		nextSdlRect.h = firstSdlRect->h;
+		animation->frames.push_back(nextSdlRect);
+	}
+}

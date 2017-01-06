@@ -15,9 +15,17 @@ public:
 	update_status Update() override;
 	bool CleanUp() override;
 
+	iPoint GetPosition() const;
+
 private:
+
+	void SetBlitCoordinates(iPoint &blitCoordinates, SDL_Rect* rectToBlit) const;
+
 	SDL_Texture* graphics = nullptr;
+	Animation* currentAnimation = nullptr;
 	iPoint position;
+	int layer = 0;
+	bool lookingRight = true;
 };
 
 #endif // __MODULEPLAYER_H__

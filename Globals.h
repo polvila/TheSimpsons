@@ -7,6 +7,9 @@
 
 void log(const char file[], int line, const char* format, ...);
 
+#define MIN( a, b ) ( ((a) < (b)) ? (a) : (b) )
+#define MAX( a, b ) ( ((a) > (b)) ? (a) : (b) )
+
 enum update_status
 {
 	UPDATE_CONTINUE = 1,
@@ -35,11 +38,13 @@ enum update_status
 	 }
 
 // Configuration -----------
-#define SCREEN_WIDTH 384
-#define SCREEN_HEIGHT 224
-#define SCREEN_SIZE 2
+#define SCREEN_WIDTH 290
+#define SCREEN_HEIGHT 220
+#define SCREEN_SIZE 3
 #define FULLSCREEN false
 #define VSYNC true
 #define TITLE "The Simpsons Arcade Game"
+
+#define CAMERA_ORIGIN_OFFSET -48
 
 #endif //__GLOBALS_H__

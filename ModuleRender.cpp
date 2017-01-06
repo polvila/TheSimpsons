@@ -6,7 +6,7 @@
 
 ModuleRender::ModuleRender()
 {
-	camera.x = camera.y = 0;
+	camera.x = camera.y = CAMERA_ORIGIN_OFFSET;
 	camera.w = SCREEN_WIDTH * SCREEN_SIZE;
 	camera.h = SCREEN_HEIGHT* SCREEN_SIZE;
 }
@@ -65,17 +65,17 @@ bool ModuleRender::CleanUp()
 }
 
 // Blit to screen
-void ModuleRender::Blit(SDL_Texture* texture, int x, int y, int z, SDL_Rect* section, float speed, SDL_RendererFlip flipType)
+void ModuleRender::Blit(SDL_Texture* texture, int x, int y, int z, SDL_Rect* section, SDL_RendererFlip flipType)
 {
 	SDL_Rect rect = {};
-	SetRect(&rect, texture, x, y, section, speed);
+	SetRect(&rect, texture, x, y, section);
 	PriorityQueueElement priorityQueueElement = {texture, z, section, rect, flipType};
 	priorityQueue.push(priorityQueueElement);
 }
 
-void ModuleRender::SetRect(SDL_Rect* rect, SDL_Texture* texture, int x, int y, SDL_Rect* section, float speed) const
+void ModuleRender::SetRect(SDL_Rect* rect, SDL_Texture* texture, int x, int y, SDL_Rect* section) const
 {
-	SetRectPosition(rect, x, y, speed);
+	SetRectPosition(rect, x, y);
 	TryToSetRectSize(rect, texture, section);
 	SetRectSizeProportionalToScreenSize(rect);
 }
@@ -118,7 +118,7 @@ bool ModuleRender::AssertRenderCreation() const
 
 void ModuleRender::HandleDebugCamera() const
 {
-	int speed = 1;
+	int speed = 6;
 
 	SetCameraPositionWithKey(SDL_SCANCODE_UP, GetCamera().x, GetCamera().y + speed);
 	SetCameraPositionWithKey(SDL_SCANCODE_DOWN, GetCamera().x, GetCamera().y - speed);
@@ -132,10 +132,10 @@ void ModuleRender::SetCameraPositionWithKey(SDL_Scancode scancodeKey, int x, int
 		App->GetModuleRender()->SetCameraPosition(x, y);
 }
 
-void ModuleRender::SetRectPosition(SDL_Rect* rect, int x, int y, float speed) const
+void ModuleRender::SetRectPosition(SDL_Rect* rect, int x, int y) const
 {
-	rect->x = static_cast<int>(camera.x * speed) + x * SCREEN_SIZE;
-	rect->y = static_cast<int>(camera.y * speed) + y * SCREEN_SIZE;
+	rect->x = static_cast<int>(camera.x) + x * SCREEN_SIZE;
+	rect->y = static_cast<int>(camera.y) + y * SCREEN_SIZE;
 }
 
 void ModuleRender::TryToSetRectSize(SDL_Rect* rect, SDL_Texture* texture, SDL_Rect* section)

@@ -34,7 +34,6 @@ enum SimpsonsSprite
 	CLOUD6,
 	TREE1,
 	TREE2,
-	HOMER_IDLE,
 	HOWIE_JUMP,
 	COUNT
 };
@@ -42,6 +41,7 @@ enum SimpsonsSprite
 enum SimpsonsAnimation
 {
 	LEAVES,
+	HOMER_IDLE,
 	HOMER_YAWN,
 	HOMER_WALK,
 	HOMER_WALK_UP,
@@ -90,6 +90,9 @@ private:
 	static void FillAnimationFrom(Animation* animation, const JSON_Object* jsonObject, const char* name);
 	static void FillTransparentPixelColorFrom(SDL_Color* color, const JSON_Object* jsonObject);
 
+	static void FillSDL_RectWithFrameCoordinates(SDL_Rect* sdlRect, JSON_Object* frameCoordinates);
+	static void FillNextSDL_Rects(SDL_Rect* firstSdlRect, int numFrames, Animation* animation);
+
 	std::map<SimpsonsTexture, char*> texturePathsMap;
 	std::map<SimpsonsTexture, SDL_Color*> transparentPixelColorsMap;
 	std::map<SimpsonsSprite, SDL_Rect*> spritesMap;
@@ -105,7 +108,7 @@ private:
 	JSON_Object* homerElements = nullptr;
 	JSON_Object* npcElements = nullptr;
 
-	const char* inputFile = "TheSimpsons/assetsInfo.json";
+	const char* inputFile = "TheSimpsons/assetsInfo2.json";
 };
 
 
