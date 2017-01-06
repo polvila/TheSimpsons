@@ -9,8 +9,8 @@
 ModulePlayer::ModulePlayer(bool start_enabled)
 {
 	position.x = 80;
-	position.y = 208;
-	layer = 5;
+	position.y = 0;;
+	zPosition = 68;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -42,12 +42,14 @@ update_status ModulePlayer::Update()
 {
 	iPoint blitCoordinates = {};
 	SDL_Rect* currentFrame = nullptr;
-	int speed = 2;
-
+	int xSpeed = 2;
+	float zSpeed = 2.857;
+	LOG("Pos player z: %f", zPosition);
+	LOG("Pos player real y: %d", realYPosition);
 	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_D) == KEY_REPEAT &&
 		App->GetModuleInput()->GetKey(SDL_SCANCODE_A) == KEY_IDLE)
 	{
-		if (position.x < 1614) position.x += speed;
+		if (position.x < 1614) position.x += xSpeed;
 		Animation* walk = App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK);
 		currentAnimation = walk;
 		lookingRight = true;
@@ -56,7 +58,7 @@ update_status ModulePlayer::Update()
 	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_A) == KEY_REPEAT &&
 		App->GetModuleInput()->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
 	{
-		if(position.x > App->GetModuleStage1()->GetMinXPlayerPosition()) position.x -= speed;
+		if(position.x > App->GetModuleStage1()->GetMinXPlayerPosition()) position.x -= xSpeed;
 		Animation* walk = App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK);
 		currentAnimation = walk;
 		lookingRight = false;
@@ -65,7 +67,7 @@ update_status ModulePlayer::Update()
 	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_S) == KEY_REPEAT &&
 		App->GetModuleInput()->GetKey(SDL_SCANCODE_W) == KEY_IDLE)
 	{
-		if(position.y < 256) position.y += speed;
+		if(zPosition > 0.0f) zPosition -= zSpeed;
 		Animation* walk = App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK);
 		currentAnimation = walk;
 	}
@@ -73,7 +75,7 @@ update_status ModulePlayer::Update()
 	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_W) == KEY_REPEAT &&
 		App->GetModuleInput()->GetKey(SDL_SCANCODE_S) == KEY_IDLE)
 	{
-		if(position.y > 153) position.y -= speed;
+		if (zPosition < 146.0f) zPosition += zSpeed;
 		Animation* walkUp = App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK_UP);
 		currentAnimation = walkUp;
 	}
@@ -85,8 +87,9 @@ update_status ModulePlayer::Update()
 		currentAnimation = App->GetModuleJsonManager()->GetAnimationOf(HOMER_IDLE);
 
 	currentFrame = &currentAnimation->GetCurrentFrame();
+	realYPosition = CalculeRealYPosition();
 	SetBlitCoordinates(blitCoordinates, currentFrame);
-	App->GetModuleRender()->Blit(graphics, blitCoordinates.x, blitCoordinates.y, layer,
+	App->GetModuleRender()->Blit(graphics, blitCoordinates.x, blitCoordinates.y, static_cast<int>(zPosition),
 	                             currentFrame, lookingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL);
 
 	return UPDATE_CONTINUE;
@@ -97,9 +100,18 @@ iPoint ModulePlayer::GetPosition() const
 	return position;
 }
 
+int ModulePlayer::GetRealYPosition() const
+{
+	return realYPosition;
+}
+
 void ModulePlayer::SetBlitCoordinates(iPoint &blitCoordinates, SDL_Rect* rectToBlit) const
 {
 	blitCoordinates.x = position.x - (rectToBlit->w / 2);
-	blitCoordinates.y = position.y - (rectToBlit->h);
+	blitCoordinates.y = realYPosition - (rectToBlit->h);
 }
 
+int ModulePlayer::CalculeRealYPosition() const
+{
+	return static_cast<int>( round( (362.0f - zPosition) * cos(45 * M_PI / 180.0) ) ) + position.y;
+}
