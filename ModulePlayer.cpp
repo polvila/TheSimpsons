@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
+#include "ModuleStage1.h"
 
 ModulePlayer::ModulePlayer(bool start_enabled)
 {
@@ -46,7 +47,7 @@ update_status ModulePlayer::Update()
 	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_D) == KEY_REPEAT &&
 		App->GetModuleInput()->GetKey(SDL_SCANCODE_A) == KEY_IDLE)
 	{
-		position.x += speed;
+		if (position.x < 1614) position.x += speed;
 		Animation* walk = App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK);
 		currentAnimation = walk;
 		lookingRight = true;
@@ -55,7 +56,7 @@ update_status ModulePlayer::Update()
 	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_A) == KEY_REPEAT &&
 		App->GetModuleInput()->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
 	{
-		position.x -= speed;
+		if(position.x > App->GetModuleStage1()->GetMinXPlayerPosition()) position.x -= speed;
 		Animation* walk = App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK);
 		currentAnimation = walk;
 		lookingRight = false;
@@ -64,7 +65,7 @@ update_status ModulePlayer::Update()
 	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_S) == KEY_REPEAT &&
 		App->GetModuleInput()->GetKey(SDL_SCANCODE_W) == KEY_IDLE)
 	{
-		position.y += speed;
+		if(position.y < 256) position.y += speed;
 		Animation* walk = App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK);
 		currentAnimation = walk;
 	}
@@ -72,7 +73,7 @@ update_status ModulePlayer::Update()
 	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_W) == KEY_REPEAT &&
 		App->GetModuleInput()->GetKey(SDL_SCANCODE_S) == KEY_IDLE)
 	{
-		position.y -= speed;
+		if(position.y > 153) position.y -= speed;
 		Animation* walkUp = App->GetModuleJsonManager()->GetAnimationOf(HOMER_WALK_UP);
 		currentAnimation = walkUp;
 	}
@@ -86,7 +87,7 @@ update_status ModulePlayer::Update()
 	currentFrame = &currentAnimation->GetCurrentFrame();
 	SetBlitCoordinates(blitCoordinates, currentFrame);
 	App->GetModuleRender()->Blit(graphics, blitCoordinates.x, blitCoordinates.y, layer,
-		currentFrame, CAMERA_VELOCITY, lookingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL);
+	                             currentFrame, lookingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL);
 
 	return UPDATE_CONTINUE;
 }

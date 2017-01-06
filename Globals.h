@@ -45,7 +45,6 @@ enum update_status
 #define VSYNC true
 #define TITLE "The Simpsons Arcade Game"
 
-#define CAMERA_VELOCITY 5.75f
-#define CAMERA_ORIGIN_OFFSET -8
+#define CAMERA_ORIGIN_OFFSET -48
 
 #endif //__GLOBALS_H__
