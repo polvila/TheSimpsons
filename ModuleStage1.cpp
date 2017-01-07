@@ -92,8 +92,8 @@ void ModuleStage1::BlitStreetlights() const
 {
 	App->GetModuleRender()->Blit(graphicsStage1, 226, 69, 16, App->GetModuleJsonManager()->GetSDL_RectOf(STREETLIGHT));
 	App->GetModuleRender()->Blit(graphicsStage1, 450, 69, 16, App->GetModuleJsonManager()->GetSDL_RectOf(STREETLIGHT));
-	App->GetModuleRender()->Blit(graphicsStage1, 1330, -67, 16, App->GetModuleJsonManager()->GetSDL_RectOf(STREETLIGHT));
-	App->GetModuleRender()->Blit(graphicsStage1, 1642, -67, 16, App->GetModuleJsonManager()->GetSDL_RectOf(STREETLIGHT));
+	App->GetModuleRender()->Blit(graphicsStage1, 1330, -67, 157, App->GetModuleJsonManager()->GetSDL_RectOf(STREETLIGHT));
+	App->GetModuleRender()->Blit(graphicsStage1, 1642, -67, 157, App->GetModuleJsonManager()->GetSDL_RectOf(STREETLIGHT));
 }
 
 void ModuleStage1::BlitTree() const
@@ -112,11 +112,10 @@ void ModuleStage1::MoveCamera() const
 	//LOG("Pos camera x: %d", App->GetModuleRender()->GetCamera().x);
 	int maxWorldPositionCameraYMovement = GetWorldYPosition(maxPlayerPerecentageCameraMovement.y);
 	
-	
-	if (App->GetModulePlayer()->GetRealYPosition() > maxWorldPositionCameraYMovement &&
+	if (App->GetModulePlayer()->GetRealGroundYPosition() > maxWorldPositionCameraYMovement &&
 		App->GetModuleRender()->GetCamera().y > maxCameraYPosition)
 	{
-		int cameraShift = App->GetModulePlayer()->GetRealYPosition() - maxWorldPositionCameraYMovement;
+		int cameraShift = App->GetModulePlayer()->GetRealGroundYPosition() - maxWorldPositionCameraYMovement;
 	
 		if (maxCameraYPosition < App->GetModuleRender()->GetCamera().y - cameraShift*SCREEN_SIZE)
 			App->GetModuleRender()->SetCameraPosition(App->GetModuleRender()->GetCamera().x,
@@ -128,10 +127,10 @@ void ModuleStage1::MoveCamera() const
 	}
 
 	int minWorldPositionCameraYMovement = GetWorldYPosition(minPlayerPercentageCameraMovement.y);
-	if (App->GetModulePlayer()->GetRealYPosition() < minWorldPositionCameraYMovement &&
+	if (App->GetModulePlayer()->GetRealGroundYPosition() < minWorldPositionCameraYMovement &&
 		App->GetModuleRender()->GetCamera().y < minCameraYPosition)
 	{
-		int cameraShift = minWorldPositionCameraYMovement - App->GetModulePlayer()->GetRealYPosition();
+		int cameraShift = minWorldPositionCameraYMovement - App->GetModulePlayer()->GetRealGroundYPosition();
 		if(minCameraYPosition > App->GetModuleRender()->GetCamera().y + cameraShift*SCREEN_SIZE)
 			App->GetModuleRender()->SetCameraPosition(App->GetModuleRender()->GetCamera().x,
 												  App->GetModuleRender()->GetCamera().y + cameraShift*SCREEN_SIZE);
