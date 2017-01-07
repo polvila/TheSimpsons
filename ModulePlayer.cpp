@@ -146,7 +146,8 @@ void ModulePlayer::Idle()
 
 void ModulePlayer::Attack()
 {
-	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_H) == KEY_DOWN || attackInProgress)
+	if ((App->GetModuleInput()->GetKey(SDL_SCANCODE_H) == KEY_DOWN || attackInProgress) &&
+		jumpInProgress == false)
 	{
 		if (attacksCount == 0)
 			currentAnimation = App->GetModuleJsonManager()->GetAnimationOf(HOMER_ATTACK1);
@@ -166,7 +167,8 @@ void ModulePlayer::Attack()
 
 void ModulePlayer::Jump()
 {
-	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_J) == KEY_REPEAT || jumpInProgress)
+	if ((App->GetModuleInput()->GetKey(SDL_SCANCODE_J) == KEY_REPEAT || jumpInProgress) &&
+		attackInProgress == false)
 	{
 		if (!jumpTimer.IsRunning())
 		{
@@ -176,13 +178,21 @@ void ModulePlayer::Jump()
 		}
 		int time = jumpTimer.GetTimerTicks();
 		JumpFunction(time);
+
+		if (position.y == 107)
+			falling = true;
+
+		if(falling)
+			currentAnimation = App->GetModuleJsonManager()->GetAnimationOf(HOMER_JUMP_DOWN);
+		else
+			currentAnimation = App->GetModuleJsonManager()->GetAnimationOf(HOMER_JUMP_UP);
+
 		if (position.y <= 0 && time != 0)
 		{
 			jumpTimer.Clear();
-			jumpInProgress = false;
+			jumpInProgress = false, falling = false;
 			position.y = 0;
 		}
-		currentAnimation = App->GetModuleJsonManager()->GetAnimationOf(HOMER_JUMP_UP);
 	}
 }
 

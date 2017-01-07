@@ -50,6 +50,7 @@ private:
 	bool jumpInProgress = false;
 	Timer jumpTimer;
 	int yVelocity = 0;
+	bool falling = false;
 
 };
 
