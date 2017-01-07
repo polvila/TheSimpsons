@@ -108,8 +108,6 @@ void ModuleStage1::BlitHamster() const
 
 void ModuleStage1::MoveCamera() const
 {
-	//LOG("Pos player y: %d", App->GetModulePlayer()->GetPosition().y);
-	//LOG("Pos camera x: %d", App->GetModuleRender()->GetCamera().x);
 	int maxWorldPositionCameraYMovement = GetWorldYPosition(maxPlayerPerecentageCameraMovement.y);
 	
 	if (App->GetModulePlayer()->GetRealGroundYPosition() > maxWorldPositionCameraYMovement &&
