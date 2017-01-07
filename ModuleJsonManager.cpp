@@ -109,7 +109,8 @@ void ModuleJsonManager::FillAnimationsMap()
 	FillAnimationFrom(animationsMap[HOMER_YAWN] = new Animation(), homerElements, "yawn");
 	FillAnimationFrom(animationsMap[HOMER_WALK] = new Animation(), homerElements, "walk");
 	FillAnimationFrom(animationsMap[HOMER_WALK_UP] = new Animation(), homerElements, "walkUp");
-	FillAnimationFrom(animationsMap[HOMER_ATTACK] = new Animation(), homerElements, "attack");
+	FillAnimationFrom(animationsMap[HOMER_ATTACK1] = new Animation(), homerElements, "attack1");
+	FillAnimationFrom(animationsMap[HOMER_ATTACK2] = new Animation(), homerElements, "attack2");
 	FillAnimationFrom(animationsMap[LADY_TOP] = new Animation(), npcElements, "ladyTop");
 	FillAnimationFrom(animationsMap[LADY_DOWN_WALK] = new Animation(), npcElements, "ladyDownWalk");
 	FillAnimationFrom(animationsMap[BIRD_IDLE] = new Animation(), npcElements, "birdIdle");
