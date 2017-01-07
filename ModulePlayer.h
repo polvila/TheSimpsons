@@ -5,8 +5,9 @@
 #include "Point.h"
 #include "Animation.h"
 #include "Timer.h"
+#include "ModuleCollision.h"
 
-class ModulePlayer : public Module
+class ModulePlayer : public Module, CollisionObserver
 {
 public:
 	ModulePlayer(bool start_enabled = true);
@@ -34,6 +35,7 @@ private:
 	void Jump();
 	void JumpFunction(int &time);
 	void BlitAnimationManagement();
+	void OnCollision(Collider* collider1, Collider* collider2) override;
 
 	SDL_Texture* graphics = nullptr;
 	Animation* currentAnimation = nullptr;
@@ -52,6 +54,7 @@ private:
 	int yVelocity = 0;
 	bool falling = false;
 
+	Collider* collider = nullptr;
 };
 
 #endif // __MODULEPLAYER_H__

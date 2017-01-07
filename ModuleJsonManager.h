@@ -35,8 +35,7 @@ enum SimpsonsSprite
 	TREE1,
 	TREE2,
 	LADY_DOWN_IDLE,
-	HOWIE_JUMP,
-	COUNT
+	HOWIE_JUMP
 };
 
 enum SimpsonsAnimation
@@ -73,6 +72,11 @@ enum SimpsonsAudio
 	STAGE1_AUDIO
 };
 
+enum SimpsonsCollider
+{
+	HOMER_COLLIDER
+};
+
 class ModuleJsonManager : public Module
 {
 public:
@@ -87,6 +91,7 @@ public:
 	SDL_Rect* GetSDL_RectOf(SimpsonsSprite sprite);
 	Animation* GetAnimationOf(SimpsonsAnimation animation);
 	char* GetAudioPathOf(SimpsonsAudio audio);
+	pair<int, int>* GetColliderSizeOf(SimpsonsCollider collider);
 
 private:
 
@@ -95,6 +100,7 @@ private:
 	void FillAnimationsMap();
 	void FillTransparentPixelColorsMap();
 	void FillAudioMap();
+	void FillCollidersMap();
 
 	static void FillSDL_RectFrom(SDL_Rect* sdlRect, const JSON_Object* jsonObject, const char* name);
 	static void FillAnimationFrom(Animation* animation, const JSON_Object* jsonObject, const char* name);
@@ -108,10 +114,12 @@ private:
 	std::map<SimpsonsSprite, SDL_Rect*> spritesMap;
 	std::map<SimpsonsAnimation, Animation*> animationsMap;
 	std::map<SimpsonsAudio, char*> audioPathsMap;
+	std::map<SimpsonsCollider, pair<int, int>*> collidersMap;
 
 	JSON_Object* assetsInfo = nullptr;
 	JSON_Object* textures = nullptr;
 	JSON_Object* audio = nullptr;
+	JSON_Object* colliders = nullptr;
 	JSON_Object* stage1 = nullptr;
 	JSON_Object* homer = nullptr;
 	JSON_Object* npc = nullptr;

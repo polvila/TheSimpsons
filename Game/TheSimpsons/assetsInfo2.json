@@ -456,5 +456,11 @@
   },
   "audio": {
     "stage1": "TheSimpsons/downtown-springfield.wav"
+  },
+  "colliders": {
+    "homer": {
+      "w": 25,
+      "h": -14
+    }
   }
 }
