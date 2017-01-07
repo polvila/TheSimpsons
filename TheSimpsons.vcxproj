@@ -141,6 +141,7 @@
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleStage1.h" />
     <ClInclude Include="ModuleTextures.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="parson.h" />
     <ClInclude Include="Point.h" />

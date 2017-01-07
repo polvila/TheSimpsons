@@ -97,9 +97,8 @@ void ModuleJsonManager::FillSpritesMap()
 	FillSDL_RectFrom(spritesMap[CLOUD6] = new SDL_Rect(), stage1Elements, "cloud6");
 	FillSDL_RectFrom(spritesMap[TREE1] = new SDL_Rect(), stage1Elements, "tree1");
 	FillSDL_RectFrom(spritesMap[TREE2] = new SDL_Rect(), stage1Elements, "tree2");
-	//FillSDL_RectFrom(spritesMap[HOMER_IDLE] = new SDL_Rect(), homerElements, "idle");
 	FillSDL_RectFrom(spritesMap[HOWIE_JUMP] = new SDL_Rect(), npcElements, "howieJump");
-	FillSDL_RectFrom(spritesMap[HOWIE_JUMP] = new SDL_Rect(), npcElements, "ladyDownIdle");
+	FillSDL_RectFrom(spritesMap[LADY_DOWN_IDLE] = new SDL_Rect(), npcElements, "ladyDownIdle");
 }
 
 void ModuleJsonManager::FillAnimationsMap()
@@ -109,7 +108,10 @@ void ModuleJsonManager::FillAnimationsMap()
 	FillAnimationFrom(animationsMap[HOMER_YAWN] = new Animation(), homerElements, "yawn");
 	FillAnimationFrom(animationsMap[HOMER_WALK] = new Animation(), homerElements, "walk");
 	FillAnimationFrom(animationsMap[HOMER_WALK_UP] = new Animation(), homerElements, "walkUp");
-	FillAnimationFrom(animationsMap[HOMER_ATTACK] = new Animation(), homerElements, "attack");
+	FillAnimationFrom(animationsMap[HOMER_ATTACK1] = new Animation(), homerElements, "attack1");
+	FillAnimationFrom(animationsMap[HOMER_ATTACK2] = new Animation(), homerElements, "attack2");
+	FillAnimationFrom(animationsMap[HOMER_JUMP_UP] = new Animation(), homerElements, "jumpUp");
+	FillAnimationFrom(animationsMap[HOMER_JUMP_DOWN] = new Animation(), homerElements, "jumpDown");
 	FillAnimationFrom(animationsMap[LADY_TOP] = new Animation(), npcElements, "ladyTop");
 	FillAnimationFrom(animationsMap[LADY_DOWN_WALK] = new Animation(), npcElements, "ladyDownWalk");
 	FillAnimationFrom(animationsMap[BIRD_IDLE] = new Animation(), npcElements, "birdIdle");
