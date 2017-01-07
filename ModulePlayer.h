@@ -20,8 +20,9 @@ public:
 
 private:
 
-	void SetBlitCoordinates(iPoint &blitCoordinates, SDL_Rect* rectToBlit) const;
+	void SetBlitCoordinates(iPoint &blitCoordinates, SDL_Rect* rectToBlit, bool attackInProgress) const;
 	int CalculeRealYPosition() const;
+	static bool AnyMovementKeyPressed();
 
 	SDL_Texture* graphics = nullptr;
 	Animation* currentAnimation = nullptr;
@@ -29,6 +30,7 @@ private:
 	float zPosition = 0.0f;
 	int realYPosition = 0;
 	bool lookingRight = true;
+	bool attackInProgress = false;
 };
 
 #endif // __MODULEPLAYER_H__
