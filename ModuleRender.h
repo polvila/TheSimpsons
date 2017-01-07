@@ -40,7 +40,8 @@ public:
 	SDL_Rect GetCamera() const;
 	SDL_Renderer* GetRenderer() const;
 	void SetCameraPosition(int x, int y);
-	
+	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera = true) const;
+
 private:
 
 	static Uint32 GetFlagsWithVsync(bool active);
@@ -52,7 +53,6 @@ private:
 	static void SetRectSize(SDL_Rect* rect, int w, int h);
 	static void SetRectSizeProportionalToScreenSize(SDL_Rect* rect);
 	bool TryToBlitToScreen(SDL_Texture* texture, SDL_Rect* section, SDL_Rect rect, SDL_RendererFlip flipType) const;
-
 	SDL_Renderer* renderer = nullptr;
 	SDL_Rect camera;
 

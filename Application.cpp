@@ -25,6 +25,9 @@ Application::Application()
 	// Game Modules
 	modules.push_back(stage1 = new ModuleStage1());
 	modules.push_back(player = new ModulePlayer());
+
+	// Modules to draw on top of game logic
+	modules.push_back(collision = new ModuleCollision());
 }
 
 Application::~Application()
@@ -117,4 +120,9 @@ ModuleStage1* Application::GetModuleStage1() const
 ModulePlayer* Application::GetModulePlayer() const
 {
 	return player;
+}
+
+ModuleCollision* Application::GetModuleCollision() const
+{
+	return collision;
 }
