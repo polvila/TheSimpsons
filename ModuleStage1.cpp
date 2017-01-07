@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+#include "ModuleAudio.h"
 
 // Reference at https://www.youtube.com/watch?v=3mZKoejwKOs&t=1047s
 
@@ -29,6 +30,11 @@ bool ModuleStage1::Start()
 		App->GetModuleJsonManager()->GetTexturePathOf(NPC),
 		App->GetModuleJsonManager()->GetTransparentPixelColor(NPC)
 	);
+
+	//TODO: Uncomment to listen the stage song
+	//App->GetModuleAudio()->PlayFx(
+	//	App->GetModuleAudio()->LoadFx(
+	//		App->GetModuleJsonManager()->GetAudioPathOf(STAGE1_AUDIO)));
 
 	return true;
 }

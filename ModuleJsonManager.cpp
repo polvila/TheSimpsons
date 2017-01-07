@@ -13,6 +13,7 @@ bool ModuleJsonManager::Init()
 {
 	assetsInfo = json_value_get_object(json_parse_file(inputFile));
 	textures = json_object_get_object(assetsInfo, "textures");
+	audio = json_object_get_object(assetsInfo, "audio");
 	stage1 = json_object_get_object(textures, "stage1");
 	homer = json_object_get_object(textures, "homer");
 	npc = json_object_get_object(textures, "npc");
@@ -22,12 +23,13 @@ bool ModuleJsonManager::Init()
 	npcElements = json_object_get_object(npc, "elements");
 
 	if(stage1Elements != nullptr && homerElements != nullptr &&
-		npcElements != nullptr)
+		npcElements != nullptr && audio != nullptr)
 	{
 		FillTextureMap();
 		FillSpritesMap();
 		FillAnimationsMap();
 		FillTransparentPixelColorsMap();
+		FillAudioMap();
 		return true;
 	}
 	return false;
@@ -68,6 +70,11 @@ SDL_Rect* ModuleJsonManager::GetSDL_RectOf(SimpsonsSprite sprite)
 Animation* ModuleJsonManager::GetAnimationOf(SimpsonsAnimation animation)
 {
 	return animationsMap[animation];
+}
+
+char* ModuleJsonManager::GetAudioPathOf(SimpsonsAudio audio)
+{
+	return audioPathsMap[audio];
 }
 
 void ModuleJsonManager::FillTextureMap()
@@ -135,6 +142,11 @@ void ModuleJsonManager::FillTransparentPixelColorsMap()
 	FillTransparentPixelColorFrom(transparentPixelColorsMap[STAGE1] = new SDL_Color(), stage1);
 	FillTransparentPixelColorFrom(transparentPixelColorsMap[HOMER] = new SDL_Color(), homer);
 	FillTransparentPixelColorFrom(transparentPixelColorsMap[NPC] = new SDL_Color(), npc);
+}
+
+void ModuleJsonManager::FillAudioMap()
+{
+	audioPathsMap[STAGE1_AUDIO] = const_cast<char*>(json_object_get_string(audio, "stage1"));
 }
 
 void ModuleJsonManager::FillSDL_RectFrom(SDL_Rect* sdlRect, const JSON_Object* jsonObject, const char* name)

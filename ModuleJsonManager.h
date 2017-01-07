@@ -68,6 +68,11 @@ enum SimpsonsAnimation
 	HAMSTER
 };
 
+enum SimpsonsAudio
+{
+	STAGE1_AUDIO
+};
+
 class ModuleJsonManager : public Module
 {
 public:
@@ -81,6 +86,7 @@ public:
 	SDL_Color* GetTransparentPixelColor(SimpsonsTexture texture);
 	SDL_Rect* GetSDL_RectOf(SimpsonsSprite sprite);
 	Animation* GetAnimationOf(SimpsonsAnimation animation);
+	char* GetAudioPathOf(SimpsonsAudio audio);
 
 private:
 
@@ -88,6 +94,7 @@ private:
 	void FillSpritesMap();
 	void FillAnimationsMap();
 	void FillTransparentPixelColorsMap();
+	void FillAudioMap();
 
 	static void FillSDL_RectFrom(SDL_Rect* sdlRect, const JSON_Object* jsonObject, const char* name);
 	static void FillAnimationFrom(Animation* animation, const JSON_Object* jsonObject, const char* name);
@@ -100,9 +107,11 @@ private:
 	std::map<SimpsonsTexture, SDL_Color*> transparentPixelColorsMap;
 	std::map<SimpsonsSprite, SDL_Rect*> spritesMap;
 	std::map<SimpsonsAnimation, Animation*> animationsMap;
+	std::map<SimpsonsAudio, char*> audioPathsMap;
 
 	JSON_Object* assetsInfo = nullptr;
 	JSON_Object* textures = nullptr;
+	JSON_Object* audio = nullptr;
 	JSON_Object* stage1 = nullptr;
 	JSON_Object* homer = nullptr;
 	JSON_Object* npc = nullptr;
