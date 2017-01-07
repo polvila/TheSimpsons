@@ -97,9 +97,8 @@ void ModuleJsonManager::FillSpritesMap()
 	FillSDL_RectFrom(spritesMap[CLOUD6] = new SDL_Rect(), stage1Elements, "cloud6");
 	FillSDL_RectFrom(spritesMap[TREE1] = new SDL_Rect(), stage1Elements, "tree1");
 	FillSDL_RectFrom(spritesMap[TREE2] = new SDL_Rect(), stage1Elements, "tree2");
-	//FillSDL_RectFrom(spritesMap[HOMER_IDLE] = new SDL_Rect(), homerElements, "idle");
 	FillSDL_RectFrom(spritesMap[HOWIE_JUMP] = new SDL_Rect(), npcElements, "howieJump");
-	FillSDL_RectFrom(spritesMap[HOWIE_JUMP] = new SDL_Rect(), npcElements, "ladyDownIdle");
+	FillSDL_RectFrom(spritesMap[LADY_DOWN_IDLE] = new SDL_Rect(), npcElements, "ladyDownIdle");
 }
 
 void ModuleJsonManager::FillAnimationsMap()

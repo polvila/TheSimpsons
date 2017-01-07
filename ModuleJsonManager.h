@@ -34,6 +34,7 @@ enum SimpsonsSprite
 	CLOUD6,
 	TREE1,
 	TREE2,
+	LADY_DOWN_IDLE,
 	HOWIE_JUMP,
 	COUNT
 };
@@ -50,7 +51,6 @@ enum SimpsonsAnimation
 	HOMER_JUMP_UP,
 	HOMER_JUMP_DOWN,
 	LADY_TOP,
-	LADY_DOWN_IDLE,
 	LADY_DOWN_WALK,
 	BIRD_IDLE,
 	BIRD_JUMP,
