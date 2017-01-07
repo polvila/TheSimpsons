@@ -86,11 +86,16 @@ update_status ModulePlayer::Update()
 
 	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_H) == KEY_DOWN || attackInProgress)
 	{
-		currentAnimation = App->GetModuleJsonManager()->GetAnimationOf(HOMER_ATTACK2);
+		if(attacksCount == 0)
+			currentAnimation = App->GetModuleJsonManager()->GetAnimationOf(HOMER_ATTACK1);
+		else
+			currentAnimation = App->GetModuleJsonManager()->GetAnimationOf(HOMER_ATTACK2);
+
 		if (currentAnimation->Finished())
 		{
 			attackInProgress = false;
 			currentAnimation->Reset();
+			attacksCount = (attacksCount + 1) % 3;
 		}
 		else
 			attackInProgress = true;

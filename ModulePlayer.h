@@ -31,6 +31,7 @@ private:
 	int realYPosition = 0;
 	bool lookingRight = true;
 	bool attackInProgress = false;
+	int attacksCount = 0;
 };
 
 #endif // __MODULEPLAYER_H__
