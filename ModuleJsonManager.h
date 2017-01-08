@@ -74,7 +74,11 @@ enum SimpsonsAudio
 
 enum SimpsonsCollider
 {
-	HOMER_COLLIDER
+	HOMER_COLLIDER,
+	STREETLIGHT_COLLIDER,
+	RESTAURANT_COLLIDER,
+	NOISELAND_COLLIDER,
+	TREE_COLLIDER
 };
 
 class ModuleJsonManager : public Module

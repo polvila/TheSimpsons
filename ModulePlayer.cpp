@@ -25,6 +25,7 @@ bool ModulePlayer::Start()
 		App->GetModuleJsonManager()->GetTexturePathOf(HOMER),
 		App->GetModuleJsonManager()->GetTransparentPixelColor(HOMER)
 	);
+
 	pair<int, int>* homerColliderSize = 
 		App->GetModuleJsonManager()->GetColliderSizeOf(HOMER_COLLIDER);
 	collider = App->GetModuleCollision()->AddCollider(
@@ -216,7 +217,7 @@ void ModulePlayer::BlitAnimationManagement()
 	currentFrame = &currentAnimation->GetCurrentFrame();
 	CalculeRealYPosition();
 	SetBlitCoordinates(blitCoordinates, currentFrame, attackInProgress);
-	collider->SetPos(position.x-collider->rect.w/2, realGrondYPosition);
+	collider->SetPos(position.x - collider->rect.w/2, realGrondYPosition - collider->rect.h);
 	App->GetModuleRender()->Blit(graphics, blitCoordinates.x, blitCoordinates.y, static_cast<int>(zPosition),
 		currentFrame, lookingRight ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL);
 }
@@ -225,5 +226,19 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 {
 	if (collider1 == collider || collider2 == collider) //player has collided
 	{ 
+		Collider* wall = (collider2 == collider)? collider1 : collider2;
+		
+		if (App->GetModuleInput()->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			position.x -= xSpeed;
+
+		if (App->GetModuleInput()->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			position.x += xSpeed;
+
+		if (App->GetModuleInput()->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			zPosition -= zSpeed;
+
+		if (App->GetModuleInput()->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+			zPosition += zSpeed;
+
 	}
 }

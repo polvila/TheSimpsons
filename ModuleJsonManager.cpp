@@ -170,6 +170,30 @@ void ModuleJsonManager::FillCollidersMap()
 		static_cast<int>(json_object_get_number(homerCollider, "w")),
 		static_cast<int>(json_object_get_number(homerCollider, "h"))
 	);
+
+	JSON_Object* streetLightCollider = json_object_get_object(colliders, "streetlight");
+	collidersMap[STREETLIGHT_COLLIDER] = new pair<int, int>(
+		static_cast<int>(json_object_get_number(streetLightCollider, "w")),
+		static_cast<int>(json_object_get_number(streetLightCollider, "h"))
+	);
+
+	JSON_Object* restaurantCollider = json_object_get_object(colliders, "restaurant");
+	collidersMap[RESTAURANT_COLLIDER] = new pair<int, int>(
+		static_cast<int>(json_object_get_number(restaurantCollider, "w")),
+		static_cast<int>(json_object_get_number(restaurantCollider, "h"))
+		);
+
+	JSON_Object* noiselandCollider = json_object_get_object(colliders, "noiseland");
+	collidersMap[NOISELAND_COLLIDER] = new pair<int, int>(
+		static_cast<int>(json_object_get_number(noiselandCollider, "w")),
+		static_cast<int>(json_object_get_number(noiselandCollider, "h"))
+		);
+
+	JSON_Object* treeCollider = json_object_get_object(colliders, "tree");
+	collidersMap[TREE_COLLIDER] = new pair<int, int>(
+		static_cast<int>(json_object_get_number(treeCollider, "w")),
+		static_cast<int>(json_object_get_number(treeCollider, "h"))
+		);
 }
 
 void ModuleJsonManager::FillSDL_RectFrom(SDL_Rect* sdlRect, const JSON_Object* jsonObject, const char* name)

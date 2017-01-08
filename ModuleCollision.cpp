@@ -36,7 +36,7 @@ update_status ModuleCollision::PreUpdate()
 
 update_status ModuleCollision::Update()
 {
-	bool needCheck = false;
+	bool needCheck;
 	bool collisionFinded = false;
 	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end() && !collisionFinded; ++it)
 	{
@@ -97,5 +97,5 @@ Collider* ModuleCollision::AddCollider(const SDL_Rect& rect, ColliderType collid
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
-	return (!(abs((rect.x + (rect.w / 2)) - (r.x + (r.w / 2))) > ((rect.w / 2) + (r.w / 2))) && !(abs((rect.y + (rect.h / 2)) - (r.y + (r.h / 2))) > ((rect.h / 2) + (r.h / 2))));
+	return rect.x < r.x + r.w && rect.x + rect.w > r.x && rect.y < r.y + r.h && rect.h + rect.y > r.y;
 }

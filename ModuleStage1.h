@@ -6,8 +6,9 @@
 #include "Animation.h"
 #include "parson.h"
 #include "Point.h"
+#include "ModuleCollision.h"
 
-class ModuleStage1 : public Module
+class ModuleStage1 : public Module, CollisionObserver
 {
 public:
 	ModuleStage1(bool start_enabled = true);
@@ -35,14 +36,23 @@ private:
 	static int GetWorldYPosition(float playerPerecentageCameraYMovement);
 	static int GetWorldXPosition(float playerPerecentageCameraXMovement);
 
-	JSON_Value* root_value;
-	JSON_Array* assets;
+	void OnCollision(Collider* collider1, Collider* collider2) override;
+	void CreateColliders();
+
+	JSON_Value* root_value = nullptr;
+	JSON_Array* assets = nullptr;
 
 	fPoint maxPlayerPerecentageCameraMovement = { 0.63f, 0.92f };
 	fPoint minPlayerPercentageCameraMovement = { 0.115f, 0.7f };
 	int maxCameraYPosition = -108;
 	int minCameraYPosition = 0;
 	int maxCameraXPosition = -4122;
+
+	Collider* streetlightCollider = nullptr;
+	Collider* streetlightCollider2 = nullptr;
+	Collider* restaurantShowcaseCollider = nullptr;
+	Collider* noiselandShowcaseCollider = nullptr;
+	Collider* treeCollider = nullptr;
 };
 
 #endif // __MODULESTAGE1_H__

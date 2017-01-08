@@ -8,7 +8,7 @@
 
 // Reference at https://www.youtube.com/watch?v=3mZKoejwKOs&t=1047s
 
-ModuleStage1::ModuleStage1(bool start_enabled) : Module(start_enabled)
+ModuleStage1::ModuleStage1(bool start_enabled) : Module(start_enabled), CollisionObserver()
 {
 	
 }
@@ -35,6 +35,8 @@ bool ModuleStage1::Start()
 	//App->GetModuleAudio()->PlayFx(
 	//	App->GetModuleAudio()->LoadFx(
 	//		App->GetModuleJsonManager()->GetAudioPathOf(STAGE1_AUDIO)));
+
+	CreateColliders();
 
 	return true;
 }
@@ -165,4 +167,35 @@ int ModuleStage1::GetWorldXPosition(float playerPerecentageCameraXMovement)
 	return static_cast<int>(abs(App->GetModuleRender()->GetCamera().x) / SCREEN_SIZE +
 		App->GetModuleRender()->GetCamera().w / SCREEN_SIZE *
 		playerPerecentageCameraXMovement); 
-} 
+}
+
+void ModuleStage1::OnCollision(Collider* collider1, Collider* collider2)
+{
+}
+
+void ModuleStage1::CreateColliders()
+{
+	pair<int, int>* colliderSize = App->GetModuleJsonManager()->GetColliderSizeOf(STREETLIGHT_COLLIDER);
+	streetlightCollider = App->GetModuleCollision()->AddCollider(
+	{ 226, 238, colliderSize->first, colliderSize->second },
+		WALL, this);
+
+	streetlightCollider2 = App->GetModuleCollision()->AddCollider(
+	{ 450, 238, colliderSize->first, colliderSize->second },
+		WALL, this);
+
+	colliderSize = App->GetModuleJsonManager()->GetColliderSizeOf(RESTAURANT_COLLIDER);
+	restaurantShowcaseCollider = App->GetModuleCollision()->AddCollider(
+	{ 233, 127, colliderSize->first, colliderSize->second },
+		WALL, this);
+
+	colliderSize = App->GetModuleJsonManager()->GetColliderSizeOf(NOISELAND_COLLIDER);
+	noiselandShowcaseCollider = App->GetModuleCollision()->AddCollider(
+	{ 420, 127, colliderSize->first, colliderSize->second },
+		WALL, this);
+
+	colliderSize = App->GetModuleJsonManager()->GetColliderSizeOf(TREE_COLLIDER);
+	treeCollider = App->GetModuleCollision()->AddCollider(
+	{ 1260, 145, colliderSize->first, colliderSize->second },
+		WALL, this);
+}
