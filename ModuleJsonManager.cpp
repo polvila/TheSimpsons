@@ -127,6 +127,7 @@ void ModuleJsonManager::FillAnimationsMap()
 	FillAnimationFrom(animationsMap[LEAVES] = new Animation(), stage1Elements, "leaves");
 	FillAnimationFrom(animationsMap[HOMER_IDLE] = new Animation(), homerElements, "idle");
 	FillAnimationFrom(animationsMap[HOMER_YAWN] = new Animation(), homerElements, "yawn");
+	SetHomerYawnAnimation();
 	FillAnimationFrom(animationsMap[HOMER_WALK] = new Animation(), homerElements, "walk");
 	FillAnimationFrom(animationsMap[HOMER_WALK_UP] = new Animation(), homerElements, "walkUp");
 	FillAnimationFrom(animationsMap[HOMER_ATTACK1] = new Animation(), homerElements, "attack1");
@@ -283,4 +284,11 @@ void ModuleJsonManager::FillNextSDL_Rects(SDL_Rect* firstSdlRect, int numFrames,
 		nextSdlRect.h = firstSdlRect->h;
 		animation->frames.push_back(nextSdlRect);
 	}
+}
+
+void ModuleJsonManager::SetHomerYawnAnimation()
+{
+	animationsMap[HOMER_YAWN]->loop = false;
+	animationsMap[HOMER_YAWN]->frames.push_back(animationsMap[HOMER_YAWN]->frames.at(animationsMap[HOMER_YAWN]->frames.size() - 2));
+	animationsMap[HOMER_YAWN]->frames.push_back(animationsMap[HOMER_YAWN]->frames.at(animationsMap[HOMER_YAWN]->frames.size() - 2));
 }

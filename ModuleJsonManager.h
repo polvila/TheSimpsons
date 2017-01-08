@@ -112,6 +112,8 @@ private:
 
 	static void FillSDL_RectWithFrameCoordinates(SDL_Rect* sdlRect, JSON_Object* frameCoordinates);
 	static void FillNextSDL_Rects(SDL_Rect* firstSdlRect, int numFrames, Animation* animation);
+	
+	void SetHomerYawnAnimation();
 
 	std::map<SimpsonsTexture, char*> texturePathsMap;
 	std::map<SimpsonsTexture, SDL_Color*> transparentPixelColorsMap;
