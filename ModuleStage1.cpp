@@ -111,7 +111,7 @@ void ModuleStage1::BlitTree() const
 
 void ModuleStage1::BlitHamster() const
 {
-	App->GetModuleRender()->Blit(graphicsNpc, 646, 102, 157, &App->GetModuleJsonManager()->GetAnimationOf(HAMSTER)->GetCurrentFrame());
+	App->GetModuleRender()->Blit(graphicsNpc, 646, 100, 157, &App->GetModuleJsonManager()->GetAnimationOf(HAMSTER)->GetCurrentFrame());
 }
 
 void ModuleStage1::MoveCamera() const
