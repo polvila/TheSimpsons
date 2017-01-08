@@ -4,6 +4,7 @@
 #include <list>
 #include "Globals.h"
 #include "Module.h"
+#include "ModuleCollision.h"
 
 class ModuleRender;
 class ModuleWindow;
@@ -33,6 +34,7 @@ public:
 	ModuleJsonManager* GetModuleJsonManager() const;
 	ModuleStage1* GetModuleStage1() const;
 	ModulePlayer* GetModulePlayer() const;
+	ModuleCollision* GetModuleCollision() const;
 private:
 
 	ModuleInput* input;
@@ -43,6 +45,7 @@ private:
 	ModuleJsonManager* jsonManager;
 	ModuleStage1* stage1;
 	ModulePlayer* player;
+	ModuleCollision* collision;
 
 
 	std::list<Module*> modules;

@@ -8,7 +8,7 @@ class Timer
 public:
 	Timer()
 	{
-		pausedTicks, runTicks = 0;
+		pausedTicks = 0, runTicks = 0;
 		running = false;
 	}
 

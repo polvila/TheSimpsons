@@ -202,8 +202,8 @@
         ],
         "attack2": [
           {
-          	"x": 195,
-          	"y": 160,
+            "x": 195,
+            "y": 160,
             "w": 65,
             "h": 68
           },
@@ -455,6 +455,28 @@
     }
   },
   "audio": {
-    "asdf": "as"
+    "stage1": "TheSimpsons/downtown-springfield.wav"
+  },
+  "colliders": {
+    "homer": {
+      "w": 28,
+      "h": 7
+    },
+    "streetlight": {
+      "w": 14,
+      "h": 6
+    },
+    "restaurant": {
+      "w": 95,
+      "h": 33
+    },
+    "noiseland": {
+      "w": 185,
+      "h": 33
+    },
+    "tree": {
+      "w": 17,
+      "h": 6
+    }
   }
 }

@@ -13,6 +13,8 @@ bool ModuleJsonManager::Init()
 {
 	assetsInfo = json_value_get_object(json_parse_file(inputFile));
 	textures = json_object_get_object(assetsInfo, "textures");
+	audio = json_object_get_object(assetsInfo, "audio");
+	colliders = json_object_get_object(assetsInfo, "colliders");
 	stage1 = json_object_get_object(textures, "stage1");
 	homer = json_object_get_object(textures, "homer");
 	npc = json_object_get_object(textures, "npc");
@@ -22,12 +24,14 @@ bool ModuleJsonManager::Init()
 	npcElements = json_object_get_object(npc, "elements");
 
 	if(stage1Elements != nullptr && homerElements != nullptr &&
-		npcElements != nullptr)
+		npcElements != nullptr && audio != nullptr)
 	{
 		FillTextureMap();
 		FillSpritesMap();
 		FillAnimationsMap();
 		FillTransparentPixelColorsMap();
+		FillAudioMap();
+		FillCollidersMap();
 		return true;
 	}
 	return false;
@@ -47,6 +51,13 @@ bool ModuleJsonManager::CleanUp()
 	for (map<SimpsonsAnimation, Animation*>::iterator it = animationsMap.begin(); it != animationsMap.end(); ++it) {
 		RELEASE(it->second);
 	}
+	for (map<SimpsonsAudio, char*>::iterator it = audioPathsMap.begin(); it != audioPathsMap.end(); ++it) {
+		RELEASE(it->second);
+	}
+	for (map<SimpsonsCollider, pair<int, int>*>::iterator it = collidersMap.begin(); it != collidersMap.end(); ++it) {
+		RELEASE(it->second);
+	}
+
 	return true;
 }
 
@@ -68,6 +79,16 @@ SDL_Rect* ModuleJsonManager::GetSDL_RectOf(SimpsonsSprite sprite)
 Animation* ModuleJsonManager::GetAnimationOf(SimpsonsAnimation animation)
 {
 	return animationsMap[animation];
+}
+
+char* ModuleJsonManager::GetAudioPathOf(SimpsonsAudio audio)
+{
+	return audioPathsMap[audio];
+}
+
+pair<int, int>* ModuleJsonManager::GetColliderSizeOf(SimpsonsCollider collider)
+{
+	return collidersMap[collider];
 }
 
 void ModuleJsonManager::FillTextureMap()
@@ -137,6 +158,44 @@ void ModuleJsonManager::FillTransparentPixelColorsMap()
 	FillTransparentPixelColorFrom(transparentPixelColorsMap[NPC] = new SDL_Color(), npc);
 }
 
+void ModuleJsonManager::FillAudioMap()
+{
+	audioPathsMap[STAGE1_AUDIO] = const_cast<char*>(json_object_get_string(audio, "stage1"));
+}
+
+void ModuleJsonManager::FillCollidersMap()
+{
+	JSON_Object* homerCollider = json_object_get_object(colliders, "homer");
+	collidersMap[HOMER_COLLIDER] = new pair<int, int>(
+		static_cast<int>(json_object_get_number(homerCollider, "w")),
+		static_cast<int>(json_object_get_number(homerCollider, "h"))
+	);
+
+	JSON_Object* streetLightCollider = json_object_get_object(colliders, "streetlight");
+	collidersMap[STREETLIGHT_COLLIDER] = new pair<int, int>(
+		static_cast<int>(json_object_get_number(streetLightCollider, "w")),
+		static_cast<int>(json_object_get_number(streetLightCollider, "h"))
+	);
+
+	JSON_Object* restaurantCollider = json_object_get_object(colliders, "restaurant");
+	collidersMap[RESTAURANT_COLLIDER] = new pair<int, int>(
+		static_cast<int>(json_object_get_number(restaurantCollider, "w")),
+		static_cast<int>(json_object_get_number(restaurantCollider, "h"))
+		);
+
+	JSON_Object* noiselandCollider = json_object_get_object(colliders, "noiseland");
+	collidersMap[NOISELAND_COLLIDER] = new pair<int, int>(
+		static_cast<int>(json_object_get_number(noiselandCollider, "w")),
+		static_cast<int>(json_object_get_number(noiselandCollider, "h"))
+		);
+
+	JSON_Object* treeCollider = json_object_get_object(colliders, "tree");
+	collidersMap[TREE_COLLIDER] = new pair<int, int>(
+		static_cast<int>(json_object_get_number(treeCollider, "w")),
+		static_cast<int>(json_object_get_number(treeCollider, "h"))
+		);
+}
+
 void ModuleJsonManager::FillSDL_RectFrom(SDL_Rect* sdlRect, const JSON_Object* jsonObject, const char* name)
 {
 	sdlRect->x = static_cast<int>(json_object_get_number(
@@ -159,7 +218,6 @@ void ModuleJsonManager::FillSDL_RectFrom(SDL_Rect* sdlRect, const JSON_Object* j
 
 void ModuleJsonManager::FillAnimationFrom(Animation* animation, const JSON_Object* jsonObject, const char* name)
 {
-	
 	JSON_Array* animationInfo = json_object_get_array(jsonObject, name);
 	JSON_Object* frameCoordinates = json_array_get_object(animationInfo, 0);
 	JSON_Object* animationSettings = json_array_get_object(animationInfo, 1);
