@@ -65,6 +65,10 @@ update_status ModuleStage1::Update()
 	BlitTree();
 	BlitHamster();
 	
+	App->GetModuleRender()->Blit(graphicsNpc, 833, 115, 134, &App->GetModuleJsonManager()->GetAnimationOf(MARTIN_IDLE)->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+	App->GetModuleRender()->Blit(graphicsNpc, 799, 94, 134, &App->GetModuleJsonManager()->GetAnimationOf(SKINNER_IDLE)->GetCurrentFrame());
+	App->GetModuleRender()->Blit(graphicsNpc, 420, 94, 159, &App->GetModuleJsonManager()->GetAnimationOf(HOWIE_FRONT_WALK)->GetCurrentFrame());
+
 	MoveCamera();
 
 	return UPDATE_CONTINUE;
@@ -111,7 +115,7 @@ void ModuleStage1::BlitTree() const
 
 void ModuleStage1::BlitHamster() const
 {
-	App->GetModuleRender()->Blit(graphicsNpc, 646, 100, 157, &App->GetModuleJsonManager()->GetAnimationOf(HAMSTER)->GetCurrentFrame());
+	App->GetModuleRender()->Blit(graphicsNpc, 642, 97, 157, &App->GetModuleJsonManager()->GetAnimationOf(HAMSTER)->GetCurrentFrame());
 }
 
 void ModuleStage1::MoveCamera() const

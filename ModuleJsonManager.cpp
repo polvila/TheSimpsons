@@ -139,7 +139,7 @@ void ModuleJsonManager::FillAnimationsMap()
 	FillAnimationFrom(animationsMap[BIRD_CLEAN] = new Animation(), npcElements, "birdClean");
 	FillAnimationFrom(animationsMap[HOWIE_FRONT_WALK] = new Animation(), npcElements, "howieFrontWalk");
 	FillAnimationFrom(animationsMap[MARTIN_IDLE] = new Animation(), npcElements, "martinIdle");
-	FillAnimationFrom(animationsMap[SKINNER_IDLE1] = new Animation(), npcElements, "skinnerIdle");
+	FillAnimationFrom(animationsMap[SKINNER_IDLE] = new Animation(), npcElements, "skinnerIdle");
 	FillAnimationFrom(animationsMap[HAMSTER] = new Animation(), npcElements, "hamster");
 }
 

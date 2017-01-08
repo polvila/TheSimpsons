@@ -322,7 +322,7 @@
           },
           {
             "frames": 3,
-            "speed": 0.2
+            "speed": 0.1
           }
         ],
         "skinnerIdle": [
@@ -334,7 +334,7 @@
           },
           {
             "frames": 3,
-            "speed": 0.2
+            "speed": 0.1
           }
         ],
         "hamster": [
