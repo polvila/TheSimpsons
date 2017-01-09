@@ -7,6 +7,7 @@
 #include "parson.h"
 #include "Point.h"
 #include "ModuleCollision.h"
+#include "Timer.h"
 
 class ModuleStage1 : public Module, CollisionObserver
 {
@@ -31,6 +32,11 @@ private:
 	void BlitStreetlights() const;
 	void BlitTree() const;
 	void BlitHamster() const;
+	void BlitMartin() const;
+	void BlitSkinner() const;
+	void BlitHowie() const;
+	void BlitBird();
+	void BlitLady();
 
 	void MoveCamera() const;
 	static int GetWorldYPosition(float playerPerecentageCameraYMovement);
@@ -53,6 +59,9 @@ private:
 	Collider* restaurantShowcaseCollider = nullptr;
 	Collider* noiselandShowcaseCollider = nullptr;
 	Collider* treeCollider = nullptr;
+
+	Timer birdTimer;
+	Timer ladyTimer;
 };
 
 #endif // __MODULESTAGE1_H__

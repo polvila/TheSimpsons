@@ -256,7 +256,7 @@
           },
           {
             "frames": 11,
-            "speed": 0.2
+            "speed": 0.1
           }
         ],
         "ladyDownIdle": {
@@ -274,7 +274,7 @@
           },
           {
             "frames": 6,
-            "speed": 0.2
+            "speed": 0.1
           }
         ],
         "birdIdle": [
@@ -286,7 +286,7 @@
           },
           {
             "frames": 2,
-            "speed": 0.2
+            "speed": 0.05
           }
         ],
         "birdClean": [
@@ -298,15 +298,15 @@
           },
           {
             "frames": 2,
-            "speed": 0.2
+            "speed": 0.1
           }
         ],
         "howieFrontWalk": [
           {
-            "x": 9,
-            "y": 109,
+            "x": 6,
+            "y": 108,
             "w": 31,
-            "h": 48
+            "h": 49
           },
           {
             "frames": 4,

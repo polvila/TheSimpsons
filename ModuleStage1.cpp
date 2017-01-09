@@ -31,6 +31,8 @@ bool ModuleStage1::Start()
 		App->GetModuleJsonManager()->GetTransparentPixelColor(NPC)
 	);
 
+	birdTimer.Start();
+
 	//TODO: Uncomment to listen the stage song
 	//App->GetModuleAudio()->PlayFx(
 	//	App->GetModuleAudio()->LoadFx(
@@ -64,10 +66,11 @@ update_status ModuleStage1::Update()
 	BlitStreetlights();
 	BlitTree();
 	BlitHamster();
-	
-	App->GetModuleRender()->Blit(graphicsNpc, 833, 115, 134, &App->GetModuleJsonManager()->GetAnimationOf(MARTIN_IDLE)->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
-	App->GetModuleRender()->Blit(graphicsNpc, 799, 94, 134, &App->GetModuleJsonManager()->GetAnimationOf(SKINNER_IDLE)->GetCurrentFrame());
-	App->GetModuleRender()->Blit(graphicsNpc, 420, 94, 159, &App->GetModuleJsonManager()->GetAnimationOf(HOWIE_FRONT_WALK)->GetCurrentFrame());
+	BlitMartin();
+	BlitSkinner();
+	BlitHowie();
+	BlitBird();
+	BlitLady();
 
 	MoveCamera();
 
@@ -116,6 +119,42 @@ void ModuleStage1::BlitTree() const
 void ModuleStage1::BlitHamster() const
 {
 	App->GetModuleRender()->Blit(graphicsNpc, 642, 97, 157, &App->GetModuleJsonManager()->GetAnimationOf(HAMSTER)->GetCurrentFrame());
+}
+
+void ModuleStage1::BlitMartin() const
+{
+	App->GetModuleRender()->Blit(graphicsNpc, 833, 115, 134, &App->GetModuleJsonManager()->GetAnimationOf(MARTIN_IDLE)->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+}
+
+void ModuleStage1::BlitSkinner() const
+{
+	App->GetModuleRender()->Blit(graphicsNpc, 799, 94, 134, &App->GetModuleJsonManager()->GetAnimationOf(SKINNER_IDLE)->GetCurrentFrame());
+}
+
+void ModuleStage1::BlitHowie() const
+{
+	App->GetModuleRender()->Blit(graphicsNpc, 425, 102, 159, &App->GetModuleJsonManager()->GetAnimationOf(HOWIE_FRONT_WALK)->GetCurrentFrame());
+}
+
+void ModuleStage1::BlitBird()
+{
+	if (birdTimer.GetTimerTicks() / 1000 > 2 && birdTimer.GetTimerTicks() / 1000 < 5)
+		App->GetModuleRender()->Blit(graphicsNpc, 220, 37, 16, &App->GetModuleJsonManager()->GetAnimationOf(BIRD_IDLE)->GetCurrentFrame(), SDL_FLIP_HORIZONTAL);
+	else
+	{
+		App->GetModuleRender()->Blit(graphicsNpc, 209, 45, 16, &App->GetModuleJsonManager()->GetAnimationOf(BIRD_CLEAN)->GetCurrentFrame());
+		if (birdTimer.GetTimerTicks() / 1000 > 5)
+		{
+			birdTimer.Clear();
+			birdTimer.Start();
+		}
+	}
+}
+
+void ModuleStage1::BlitLady()
+{
+	App->GetModuleRender()->Blit(graphicsNpc, 325 + 7, 78, 159, &App->GetModuleJsonManager()->GetAnimationOf(LADY_TOP)->GetCurrentFrame());
+	App->GetModuleRender()->Blit(graphicsNpc, 325, 109, 159, &App->GetModuleJsonManager()->GetAnimationOf(LADY_DOWN_WALK)->GetCurrentFrame());
 }
 
 void ModuleStage1::MoveCamera() const
