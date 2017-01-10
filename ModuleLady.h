@@ -15,6 +15,8 @@ public:
 	bool CleanUp() override;
 	
 private:
+	void ChangePositionLady();
+	void FindNewPositionAndStopLady();
 	void BlitLady() const;
 	void UpdateNextPositionLady();
 

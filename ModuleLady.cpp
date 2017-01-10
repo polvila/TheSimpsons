@@ -29,32 +29,10 @@ bool ModuleLady::Start()
 
 update_status ModuleLady::Update()
 {
-	int ladyVelocity = 1;
-
 	if (ladyTimer.GetTimerTicks() / 1000 > 1)
 		ladyStopped = false;
 
-	if (nextPositionLady < actualPositionLady && !ladyStopped)
-	{
-		ladyLookingRight = false;
-		actualPositionLady -= ladyVelocity;
-	}
-	else if (nextPositionLady > actualPositionLady && !ladyStopped)
-	{
-		ladyLookingRight = true;
-		actualPositionLady += ladyVelocity;
-	}
-	else
-	{
-		if (!ladyStopped)
-		{
-			UpdateNextPositionLady();
-			ladyTimer.Clear();
-			ladyTimer.Start();
-		}
-		ladyStopped = true;
-	}
-
+	ChangePositionLady();
 	BlitLady();
 
 	return UPDATE_CONTINUE;
@@ -67,6 +45,34 @@ bool ModuleLady::CleanUp()
 	App->GetModuleTextures()->Unload(graphicsNpc);
 
 	return true;
+}
+
+void ModuleLady::ChangePositionLady()
+{
+	int ladyVelocity = 1;
+	if (nextPositionLady < actualPositionLady && !ladyStopped)
+	{
+		ladyLookingRight = false;
+		actualPositionLady -= ladyVelocity;
+	}
+	else if (nextPositionLady > actualPositionLady && !ladyStopped)
+	{
+		ladyLookingRight = true;
+		actualPositionLady += ladyVelocity;
+	}
+	else
+		FindNewPositionAndStopLady();
+}
+
+void ModuleLady::FindNewPositionAndStopLady()
+{
+	if (!ladyStopped)
+	{
+		UpdateNextPositionLady();
+		ladyTimer.Clear();
+		ladyTimer.Start();
+	}
+	ladyStopped = true;
 }
 
 void ModuleLady::BlitLady() const

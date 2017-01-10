@@ -19,8 +19,9 @@ struct Collider
 	void* user_data;
 
 	Collider(SDL_Rect rectangle, ColliderType colliderType, CollisionObserver* collisionObserver) :
-		rect(rectangle), colliderType(colliderType), collisionObserver(collisionObserver)
-	{}
+		colliderType(colliderType), collisionObserver(collisionObserver), rect(rectangle), user_data(nullptr)
+	{
+	}
 
 	void SetPos(int x, int y)
 	{
@@ -47,6 +48,8 @@ public:
 	void DebugDraw();
 
 private:
+	void CheckCollision();
+
 	bool collisionTypes[COUNT][COUNT];
 	std::list<Collider*> colliders;
 	bool debug = false;
