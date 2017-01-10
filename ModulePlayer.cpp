@@ -32,6 +32,8 @@ bool ModulePlayer::Start()
 		{ 0, 0, homerColliderSize->first, homerColliderSize->second }
 			, PLAYER, this);
 
+	yawnTimer.Start();
+
 	return true;
 }
 
@@ -147,7 +149,26 @@ void ModulePlayer::Upwards()
 void ModulePlayer::Idle()
 {
 	if (AnyMovementKeyPressed())
-		currentAnimation = App->GetModuleJsonManager()->GetAnimationOf(HOMER_IDLE);
+	{
+		if(yawnTimer.GetTimerTicks()/1000 >= 2)
+		{
+			currentAnimation = App->GetModuleJsonManager()->GetAnimationOf(HOMER_YAWN);
+			if (currentAnimation->Finished())
+			{
+				currentAnimation->Reset();
+				yawnTimer.Clear();
+				yawnTimer.Start();
+			}
+		}
+		else
+			currentAnimation = App->GetModuleJsonManager()->GetAnimationOf(HOMER_IDLE);
+	}else 
+	{
+		if (currentAnimation == App->GetModuleJsonManager()->GetAnimationOf(HOMER_YAWN))
+			currentAnimation->Reset();
+		yawnTimer.Clear();
+		yawnTimer.Start();
+	}	
 }
 
 void ModulePlayer::Attack()

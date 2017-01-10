@@ -51,6 +51,7 @@ private:
 	int attacksCount = 0;
 	bool jumpInProgress = false;
 	Timer jumpTimer;
+	Timer yawnTimer;
 	int yVelocity = 0;
 	bool falling = false;
 

@@ -118,7 +118,6 @@ void ModuleJsonManager::FillSpritesMap()
 	FillSDL_RectFrom(spritesMap[CLOUD6] = new SDL_Rect(), stage1Elements, "cloud6");
 	FillSDL_RectFrom(spritesMap[TREE1] = new SDL_Rect(), stage1Elements, "tree1");
 	FillSDL_RectFrom(spritesMap[TREE2] = new SDL_Rect(), stage1Elements, "tree2");
-	FillSDL_RectFrom(spritesMap[HOWIE_JUMP] = new SDL_Rect(), npcElements, "howieJump");
 	FillSDL_RectFrom(spritesMap[LADY_DOWN_IDLE] = new SDL_Rect(), npcElements, "ladyDownIdle");
 }
 
@@ -127,6 +126,7 @@ void ModuleJsonManager::FillAnimationsMap()
 	FillAnimationFrom(animationsMap[LEAVES] = new Animation(), stage1Elements, "leaves");
 	FillAnimationFrom(animationsMap[HOMER_IDLE] = new Animation(), homerElements, "idle");
 	FillAnimationFrom(animationsMap[HOMER_YAWN] = new Animation(), homerElements, "yawn");
+	SetHomerYawnAnimation();
 	FillAnimationFrom(animationsMap[HOMER_WALK] = new Animation(), homerElements, "walk");
 	FillAnimationFrom(animationsMap[HOMER_WALK_UP] = new Animation(), homerElements, "walkUp");
 	FillAnimationFrom(animationsMap[HOMER_ATTACK1] = new Animation(), homerElements, "attack1");
@@ -136,18 +136,10 @@ void ModuleJsonManager::FillAnimationsMap()
 	FillAnimationFrom(animationsMap[LADY_TOP] = new Animation(), npcElements, "ladyTop");
 	FillAnimationFrom(animationsMap[LADY_DOWN_WALK] = new Animation(), npcElements, "ladyDownWalk");
 	FillAnimationFrom(animationsMap[BIRD_IDLE] = new Animation(), npcElements, "birdIdle");
-	FillAnimationFrom(animationsMap[BIRD_JUMP] = new Animation(), npcElements, "birdJump");
 	FillAnimationFrom(animationsMap[BIRD_CLEAN] = new Animation(), npcElements, "birdClean");
-	FillAnimationFrom(animationsMap[BIRD_FLY] = new Animation(), npcElements, "birdFly");
 	FillAnimationFrom(animationsMap[HOWIE_FRONT_WALK] = new Animation(), npcElements, "howieFrontWalk");
-	FillAnimationFrom(animationsMap[HOWIE_WALK] = new Animation(), npcElements, "howieWalk");
-	FillAnimationFrom(animationsMap[HOWIE_IDLE] = new Animation(), npcElements, "howieIdle");
 	FillAnimationFrom(animationsMap[MARTIN_IDLE] = new Animation(), npcElements, "martinIdle");
-	FillAnimationFrom(animationsMap[MARTIN_RUN] = new Animation(), npcElements, "martinRun");
-	FillAnimationFrom(animationsMap[SKINNER_IDLE1] = new Animation(), npcElements, "skinnerIdle1");
-	FillAnimationFrom(animationsMap[SKINNER_WALK] = new Animation(), npcElements, "skinnerWalk");
-	FillAnimationFrom(animationsMap[SKINNER_IDLE2] = new Animation(), npcElements, "skinnerIdle2");
-	FillAnimationFrom(animationsMap[SKINNER_RUN] = new Animation(), npcElements, "skinnerRun");
+	FillAnimationFrom(animationsMap[SKINNER_IDLE] = new Animation(), npcElements, "skinnerIdle");
 	FillAnimationFrom(animationsMap[HAMSTER] = new Animation(), npcElements, "hamster");
 }
 
@@ -283,4 +275,11 @@ void ModuleJsonManager::FillNextSDL_Rects(SDL_Rect* firstSdlRect, int numFrames,
 		nextSdlRect.h = firstSdlRect->h;
 		animation->frames.push_back(nextSdlRect);
 	}
+}
+
+void ModuleJsonManager::SetHomerYawnAnimation()
+{
+	animationsMap[HOMER_YAWN]->loop = false;
+	animationsMap[HOMER_YAWN]->frames.push_back(animationsMap[HOMER_YAWN]->frames.at(animationsMap[HOMER_YAWN]->frames.size() - 2));
+	animationsMap[HOMER_YAWN]->frames.push_back(animationsMap[HOMER_YAWN]->frames.at(animationsMap[HOMER_YAWN]->frames.size() - 2));
 }

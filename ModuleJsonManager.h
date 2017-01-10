@@ -52,18 +52,10 @@ enum SimpsonsAnimation
 	LADY_TOP,
 	LADY_DOWN_WALK,
 	BIRD_IDLE,
-	BIRD_JUMP,
 	BIRD_CLEAN,
-	BIRD_FLY,
 	HOWIE_FRONT_WALK,
-	HOWIE_WALK,
-	HOWIE_IDLE,
 	MARTIN_IDLE,
-	MARTIN_RUN,
-	SKINNER_IDLE1,
-	SKINNER_WALK,
-	SKINNER_IDLE2,
-	SKINNER_RUN,
+	SKINNER_IDLE,
 	HAMSTER
 };
 
@@ -112,6 +104,8 @@ private:
 
 	static void FillSDL_RectWithFrameCoordinates(SDL_Rect* sdlRect, JSON_Object* frameCoordinates);
 	static void FillNextSDL_Rects(SDL_Rect* firstSdlRect, int numFrames, Animation* animation);
+	
+	void SetHomerYawnAnimation();
 
 	std::map<SimpsonsTexture, char*> texturePathsMap;
 	std::map<SimpsonsTexture, SDL_Color*> transparentPixelColorsMap;

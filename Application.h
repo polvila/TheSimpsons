@@ -4,7 +4,6 @@
 #include <list>
 #include "Globals.h"
 #include "Module.h"
-#include "ModuleCollision.h"
 
 class ModuleRender;
 class ModuleWindow;
@@ -14,6 +13,8 @@ class ModuleAudio;
 class ModuleJsonManager;
 class ModuleStage1;
 class ModulePlayer;
+class ModuleCollision;
+class ModuleLady;
 
 class Application
 {
@@ -46,6 +47,7 @@ private:
 	ModuleStage1* stage1;
 	ModulePlayer* player;
 	ModuleCollision* collision;
+	ModuleLady* lady;
 
 
 	std::list<Module*> modules;

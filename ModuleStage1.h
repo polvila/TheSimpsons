@@ -7,6 +7,7 @@
 #include "parson.h"
 #include "Point.h"
 #include "ModuleCollision.h"
+#include "Timer.h"
 
 class ModuleStage1 : public Module, CollisionObserver
 {
@@ -20,9 +21,6 @@ public:
 
 	int GetMinXPlayerPosition() const;
 
-	SDL_Texture* graphicsStage1 = nullptr;
-	SDL_Texture* graphicsNpc = nullptr;
-
 private:
 	void BlitBackground() const;
 	void BlitForeground() const;
@@ -31,6 +29,10 @@ private:
 	void BlitStreetlights() const;
 	void BlitTree() const;
 	void BlitHamster() const;
+	void BlitMartin() const;
+	void BlitSkinner() const;
+	void BlitHowie() const;
+	void BlitBird();
 
 	void MoveCamera() const;
 	static int GetWorldYPosition(float playerPerecentageCameraYMovement);
@@ -38,6 +40,9 @@ private:
 
 	void OnCollision(Collider* collider1, Collider* collider2) override;
 	void CreateColliders();
+
+	SDL_Texture* graphicsStage1 = nullptr;
+	SDL_Texture* graphicsNpc = nullptr;
 
 	JSON_Value* root_value = nullptr;
 	JSON_Array* assets = nullptr;
@@ -53,6 +58,8 @@ private:
 	Collider* restaurantShowcaseCollider = nullptr;
 	Collider* noiselandShowcaseCollider = nullptr;
 	Collider* treeCollider = nullptr;
+
+	Timer birdTimer;
 };
 
 #endif // __MODULESTAGE1_H__
