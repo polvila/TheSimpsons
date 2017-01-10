@@ -36,6 +36,25 @@ update_status ModuleCollision::PreUpdate()
 
 update_status ModuleCollision::Update()
 {
+	CheckCollision();
+
+	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		debug = !debug;
+
+	if (debug == true)
+		DebugDraw();
+
+	return UPDATE_CONTINUE;
+}
+
+void ModuleCollision::DebugDraw()
+{
+	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
+		App->GetModuleRender()->DrawQuad((*it)->rect, 255, 0, 0, 80);
+}
+
+void ModuleCollision::CheckCollision()
+{
 	bool needCheck;
 	bool collisionFinded = false;
 	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end() && !collisionFinded; ++it)
@@ -57,20 +76,6 @@ update_status ModuleCollision::Update()
 			}
 		}
 	}
-
-	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		debug = !debug;
-
-	if (debug == true)
-		DebugDraw();
-
-	return UPDATE_CONTINUE;
-}
-
-void ModuleCollision::DebugDraw()
-{
-	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
-		App->GetModuleRender()->DrawQuad((*it)->rect, 255, 0, 0, 80);
 }
 
 // Called before quitting

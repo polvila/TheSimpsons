@@ -35,11 +35,14 @@ private:
 	void BlitBird();
 
 	void MoveCamera() const;
+	void ControlMaxYCameraPosition() const;
+	void ControlMinYCameraPositon() const;
+	void ControlMaxXCameraPosition() const;
 	static int GetWorldYPosition(float playerPerecentageCameraYMovement);
 	static int GetWorldXPosition(float playerPerecentageCameraXMovement);
 
 	void OnCollision(Collider* collider1, Collider* collider2) override;
-	void CreateColliders();
+	void CreateStageColliders();
 
 	SDL_Texture* graphicsStage1 = nullptr;
 	SDL_Texture* graphicsNpc = nullptr;

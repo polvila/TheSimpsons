@@ -25,6 +25,8 @@ bool ModuleStage1::Start()
 		App->GetModuleJsonManager()->GetTransparentPixelColor(STAGE1)
 	);
 
+	LOG("Loading NPC");
+
 	graphicsNpc = App->GetModuleTextures()->Load(
 		App->GetModuleJsonManager()->GetTexturePathOf(NPC),
 		App->GetModuleJsonManager()->GetTransparentPixelColor(NPC)
@@ -32,12 +34,13 @@ bool ModuleStage1::Start()
 
 	birdTimer.Start();
 	
-	//TODO: Uncomment to listen the stage song
-	//App->GetModuleAudio()->PlayFx(
-	//	App->GetModuleAudio()->LoadFx(
-	//		App->GetModuleJsonManager()->GetAudioPathOf(STAGE1_AUDIO)));
+	LOG("Play background music");
 
-	CreateColliders();
+	App->GetModuleAudio()->PlayFx(
+		App->GetModuleAudio()->LoadFx(
+			App->GetModuleJsonManager()->GetAudioPathOf(STAGE1_AUDIO)));
+
+	CreateStageColliders();
 
 	return true;
 }
@@ -153,37 +156,48 @@ void ModuleStage1::BlitBird()
 
 void ModuleStage1::MoveCamera() const
 {
+	ControlMaxYCameraPosition();
+	ControlMinYCameraPositon();
+	ControlMaxXCameraPosition();
+}
+
+void ModuleStage1::ControlMaxYCameraPosition() const
+{
 	int maxWorldPositionCameraYMovement = GetWorldYPosition(maxPlayerPerecentageCameraMovement.y);
-	
 	if (App->GetModulePlayer()->GetRealGroundYPosition() > maxWorldPositionCameraYMovement &&
 		App->GetModuleRender()->GetCamera().y > maxCameraYPosition)
 	{
 		int cameraShift = App->GetModulePlayer()->GetRealGroundYPosition() - maxWorldPositionCameraYMovement;
-	
+
 		if (maxCameraYPosition < App->GetModuleRender()->GetCamera().y - cameraShift*SCREEN_SIZE)
 			App->GetModuleRender()->SetCameraPosition(App->GetModuleRender()->GetCamera().x,
 				App->GetModuleRender()->GetCamera().y - cameraShift*SCREEN_SIZE);
 		else
 			App->GetModuleRender()->SetCameraPosition(App->GetModuleRender()->GetCamera().x,
 				maxCameraYPosition);
-
 	}
+}
 
+void ModuleStage1::ControlMinYCameraPositon() const
+{
 	int minWorldPositionCameraYMovement = GetWorldYPosition(minPlayerPercentageCameraMovement.y);
 	if (App->GetModulePlayer()->GetRealGroundYPosition() < minWorldPositionCameraYMovement &&
 		App->GetModuleRender()->GetCamera().y < minCameraYPosition)
 	{
 		int cameraShift = minWorldPositionCameraYMovement - App->GetModulePlayer()->GetRealGroundYPosition();
-		if(minCameraYPosition > App->GetModuleRender()->GetCamera().y + cameraShift*SCREEN_SIZE)
+		if (minCameraYPosition > App->GetModuleRender()->GetCamera().y + cameraShift*SCREEN_SIZE)
 			App->GetModuleRender()->SetCameraPosition(App->GetModuleRender()->GetCamera().x,
-												  App->GetModuleRender()->GetCamera().y + cameraShift*SCREEN_SIZE);
+				App->GetModuleRender()->GetCamera().y + cameraShift*SCREEN_SIZE);
 		else
 			App->GetModuleRender()->SetCameraPosition(App->GetModuleRender()->GetCamera().x,
 				minCameraYPosition);
 	}
-	
+}
+
+void ModuleStage1::ControlMaxXCameraPosition() const
+{
 	int maxWorldPositionCameraXMovement = GetWorldXPosition(maxPlayerPerecentageCameraMovement.x);
-	if(App->GetModulePlayer()->GetPosition().x > maxWorldPositionCameraXMovement &&
+	if (App->GetModulePlayer()->GetPosition().x > maxWorldPositionCameraXMovement &&
 		App->GetModuleRender()->GetCamera().x > maxCameraXPosition)
 	{
 		int cameraShift = App->GetModulePlayer()->GetPosition().x - maxWorldPositionCameraXMovement;
@@ -210,13 +224,12 @@ void ModuleStage1::OnCollision(Collider* collider1, Collider* collider2)
 {
 }
 
-void ModuleStage1::CreateColliders()
+void ModuleStage1::CreateStageColliders()
 {
 	pair<int, int>* colliderSize = App->GetModuleJsonManager()->GetColliderSizeOf(STREETLIGHT_COLLIDER);
 	streetlightCollider = App->GetModuleCollision()->AddCollider(
 	{ 226, 238, colliderSize->first, colliderSize->second },
 		WALL, this);
-
 	streetlightCollider2 = App->GetModuleCollision()->AddCollider(
 	{ 450, 238, colliderSize->first, colliderSize->second },
 		WALL, this);

@@ -28,9 +28,10 @@ bool ModulePlayer::Start()
 
 	pair<int, int>* homerColliderSize = 
 		App->GetModuleJsonManager()->GetColliderSizeOf(HOMER_COLLIDER);
+
 	collider = App->GetModuleCollision()->AddCollider(
-		{ 0, 0, homerColliderSize->first, homerColliderSize->second }
-			, PLAYER, this);
+		{ 0, 0, homerColliderSize->first, homerColliderSize->second }, PLAYER, this
+	);
 
 	yawnTimer.Start();
 
