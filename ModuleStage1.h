@@ -21,9 +21,6 @@ public:
 
 	int GetMinXPlayerPosition() const;
 
-	SDL_Texture* graphicsStage1 = nullptr;
-	SDL_Texture* graphicsNpc = nullptr;
-
 private:
 	void BlitBackground() const;
 	void BlitForeground() const;
@@ -36,7 +33,6 @@ private:
 	void BlitSkinner() const;
 	void BlitHowie() const;
 	void BlitBird();
-	void BlitLady();
 
 	void MoveCamera() const;
 	static int GetWorldYPosition(float playerPerecentageCameraYMovement);
@@ -44,6 +40,9 @@ private:
 
 	void OnCollision(Collider* collider1, Collider* collider2) override;
 	void CreateColliders();
+
+	SDL_Texture* graphicsStage1 = nullptr;
+	SDL_Texture* graphicsNpc = nullptr;
 
 	JSON_Value* root_value = nullptr;
 	JSON_Array* assets = nullptr;
@@ -61,7 +60,6 @@ private:
 	Collider* treeCollider = nullptr;
 
 	Timer birdTimer;
-	Timer ladyTimer;
 };
 
 #endif // __MODULESTAGE1_H__

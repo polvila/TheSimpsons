@@ -10,7 +10,6 @@
 
 ModuleStage1::ModuleStage1(bool start_enabled) : Module(start_enabled), CollisionObserver()
 {
-	
 }
 
 ModuleStage1::~ModuleStage1()
@@ -32,7 +31,7 @@ bool ModuleStage1::Start()
 	);
 
 	birdTimer.Start();
-
+	
 	//TODO: Uncomment to listen the stage song
 	//App->GetModuleAudio()->PlayFx(
 	//	App->GetModuleAudio()->LoadFx(
@@ -46,8 +45,10 @@ bool ModuleStage1::Start()
 bool ModuleStage1::CleanUp()
 {
 	LOG("Unloading Stage 1");
-
 	App->GetModuleTextures()->Unload(graphicsStage1);
+
+	LOG("Unloading Npc");
+	App->GetModuleTextures()->Unload(graphicsNpc);
 
 	return true;
 }
@@ -70,7 +71,6 @@ update_status ModuleStage1::Update()
 	BlitSkinner();
 	BlitHowie();
 	BlitBird();
-	BlitLady();
 
 	MoveCamera();
 
@@ -149,12 +149,6 @@ void ModuleStage1::BlitBird()
 			birdTimer.Start();
 		}
 	}
-}
-
-void ModuleStage1::BlitLady()
-{
-	App->GetModuleRender()->Blit(graphicsNpc, 325 + 7, 78, 159, &App->GetModuleJsonManager()->GetAnimationOf(LADY_TOP)->GetCurrentFrame());
-	App->GetModuleRender()->Blit(graphicsNpc, 325, 109, 159, &App->GetModuleJsonManager()->GetAnimationOf(LADY_DOWN_WALK)->GetCurrentFrame());
 }
 
 void ModuleStage1::MoveCamera() const

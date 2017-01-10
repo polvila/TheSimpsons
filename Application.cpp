@@ -7,6 +7,7 @@
 #include "ModuleJsonManager.h"
 #include "ModuleStage1.h"
 #include "ModulePlayer.h"
+#include "ModuleLady.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ Application::Application()
 	// Game Modules
 	modules.push_back(stage1 = new ModuleStage1());
 	modules.push_back(player = new ModulePlayer());
+	modules.push_back(lady = new ModuleLady());
 
 	// Modules to draw on top of game logic
 	modules.push_back(collision = new ModuleCollision());
