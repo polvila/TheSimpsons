@@ -63,6 +63,7 @@ private:
 	Collider* treeCollider = nullptr;
 
 	Timer birdTimer;
+	int cameraPosition = -48;
 };
 
 #endif // __MODULESTAGE1_H__

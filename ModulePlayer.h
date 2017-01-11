@@ -21,11 +21,12 @@ public:
 	int GetRealYPosition() const;
 	int GetRealGroundYPosition() const;
 
+	static bool NoMovementKeyPressed();
+
 private:
 
 	void SetBlitCoordinates(iPoint &blitCoordinates, SDL_Rect* rectToBlit, bool attackInProgress) const;
 	void CalculeRealYPosition();
-	static bool AnyMovementKeyPressed();
 	void Frontwards();
 	void Backwards();
 	void Downwards();

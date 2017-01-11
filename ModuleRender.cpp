@@ -6,7 +6,7 @@
 
 ModuleRender::ModuleRender()
 {
-	camera.x = camera.y = CAMERA_ORIGIN_OFFSET;
+	camera.x = camera.y = 0;
 	camera.w = SCREEN_WIDTH * SCREEN_SIZE;
 	camera.h = SCREEN_HEIGHT* SCREEN_SIZE;
 }
@@ -191,4 +191,9 @@ bool ModuleRender::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uin
 	}
 
 	return ret;
+}
+
+void ModuleRender::CleanPriorityQueue()
+{
+	priorityQueue = priority_queue <PriorityQueueElement>();
 }

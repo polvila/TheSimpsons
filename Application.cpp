@@ -8,6 +8,7 @@
 #include "ModuleStage1.h"
 #include "ModulePlayer.h"
 #include "ModuleLady.h"
+#include "ModuleFadeToBlack.h"
 
 using namespace std;
 
@@ -24,12 +25,13 @@ Application::Application()
 	modules.push_back(jsonManager = new ModuleJsonManager());
 
 	// Game Modules
-	modules.push_back(stage1 = new ModuleStage1());
-	modules.push_back(player = new ModulePlayer());
-	modules.push_back(lady = new ModuleLady());
+	modules.push_back(stage1 = new ModuleStage1(false));
+	modules.push_back(player = new ModulePlayer(false));
+	modules.push_back(lady = new ModuleLady(false));
 
 	// Modules to draw on top of game logic
 	modules.push_back(collision = new ModuleCollision());
+	modules.push_back(fade = new ModuleFadeToBlack());
 }
 
 Application::~Application()
@@ -51,6 +53,9 @@ bool Application::Init()
 			ret = (*it)->Start();
 	}
 
+	// Start the first scene --
+	fade->FadeToBlack(static_cast<Module*>(App->GetModuleStage1()), nullptr, 3.0f);
+	
 	return ret;
 }
 
@@ -127,4 +132,14 @@ ModulePlayer* Application::GetModulePlayer() const
 ModuleCollision* Application::GetModuleCollision() const
 {
 	return collision;
+}
+
+ModuleFadeToBlack* Application::GetModuleFadeToBlack() const
+{
+	return fade;
+}
+
+ModuleLady* Application::GetModuleLady() const
+{
+	return lady;
 }
