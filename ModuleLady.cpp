@@ -5,7 +5,7 @@
 #include "ModuleTextures.h"
 #include "time.h"
 
-ModuleLady::ModuleLady(bool start_enabled)
+ModuleLady::ModuleLady(bool start_enabled) : Module(start_enabled)
 {
 }
 
@@ -15,11 +15,15 @@ ModuleLady::~ModuleLady()
 
 bool ModuleLady::Start()
 {
+	LOG("Loading Lady NPC");
+
 	graphicsNpc = App->GetModuleTextures()->Load(
 		App->GetModuleJsonManager()->GetTexturePathOf(NPC),
 		App->GetModuleJsonManager()->GetTransparentPixelColor(NPC)
 	);
-
+	
+	actualPositionLady = 325;
+	ladyStopped = false;
 	UpdateNextPositionLady();
 
 	srand(static_cast<unsigned int>(time(nullptr)));
@@ -40,9 +44,10 @@ update_status ModuleLady::Update()
 
 bool ModuleLady::CleanUp()
 {
-	LOG("Unloading Npc");
+	LOG("Unloading Lady NPC");
 
 	App->GetModuleTextures()->Unload(graphicsNpc);
+	ladyTimer.Clear();
 
 	return true;
 }
@@ -91,5 +96,4 @@ void ModuleLady::UpdateNextPositionLady()
 	int minNextPositionLady = 239;
 	int maxNextPositionLady = 86;
 	nextPositionLady = rand() % maxNextPositionLady + minNextPositionLady;
-	LOG("Rand: %d", nextPositionLady);
 }

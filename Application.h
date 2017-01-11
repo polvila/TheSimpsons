@@ -14,6 +14,7 @@ class ModuleJsonManager;
 class ModuleStage1;
 class ModulePlayer;
 class ModuleCollision;
+class ModuleFadeToBlack;
 class ModuleLady;
 
 class Application
@@ -36,6 +37,8 @@ public:
 	ModuleStage1* GetModuleStage1() const;
 	ModulePlayer* GetModulePlayer() const;
 	ModuleCollision* GetModuleCollision() const;
+	ModuleFadeToBlack* GetModuleFadeToBlack() const;
+	ModuleLady* GetModuleLady() const;
 private:
 
 	ModuleInput* input;
@@ -47,8 +50,8 @@ private:
 	ModuleStage1* stage1;
 	ModulePlayer* player;
 	ModuleCollision* collision;
+	ModuleFadeToBlack* fade;
 	ModuleLady* lady;
-
 
 	std::list<Module*> modules;
 };

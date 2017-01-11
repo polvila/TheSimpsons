@@ -5,6 +5,9 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModuleAudio.h"
+#include "ModuleInput.h"
+#include "ModuleFadeToBlack.h"
+#include "ModuleLady.h"
 
 // Reference at https://www.youtube.com/watch?v=3mZKoejwKOs&t=1047s
 
@@ -34,13 +37,16 @@ bool ModuleStage1::Start()
 
 	birdTimer.Start();
 	
+	App->GetModulePlayer()->Enable();
+	App->GetModuleLady()->Enable();
+
 	LOG("Play background music");
 
-	App->GetModuleAudio()->PlayFx(
-		App->GetModuleAudio()->LoadFx(
-			App->GetModuleJsonManager()->GetAudioPathOf(STAGE1_AUDIO)));
+	App->GetModuleAudio()->PlayMusic(App->GetModuleJsonManager()->GetAudioPathOf(STAGE1_AUDIO), 1.0f);
 
 	CreateStageColliders();
+
+	App->GetModuleRender()->SetCameraPosition(cameraPosition, cameraPosition);
 
 	return true;
 }
@@ -50,8 +56,13 @@ bool ModuleStage1::CleanUp()
 	LOG("Unloading Stage 1");
 	App->GetModuleTextures()->Unload(graphicsStage1);
 
-	LOG("Unloading Npc");
+	LOG("Unloading NPC");
 	App->GetModuleTextures()->Unload(graphicsNpc);
+
+	App->GetModulePlayer()->Disable();
+	App->GetModuleLady()->Disable();
+
+	birdTimer.Clear();
 
 	return true;
 }
@@ -75,7 +86,13 @@ update_status ModuleStage1::Update()
 	BlitHowie();
 	BlitBird();
 
-	MoveCamera();
+	if(!App->GetModulePlayer()->NoMovementKeyPressed())
+		MoveCamera();
+
+	if (App->GetModuleInput()->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->GetModuleFadeToBlack()->isFading() == false)
+	{
+		App->GetModuleFadeToBlack()->FadeToBlack(this, this);
+	}
 
 	return UPDATE_CONTINUE;
 }

@@ -68,7 +68,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\Users\Pol Vilà\Documents\TheSimpsons\SDL\include;C:\Users\Pol Vilà\Documents\TheSimpsons\SDL_mixer\include;C:\Users\Pol Vilà\Documents\TheSimpsons\SDL_image\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -100,6 +102,9 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>C:\Users\Pol Vilà\Documents\TheSimpsons\SDL\libx86;C:\Users\Pol Vilà\Documents\TheSimpsons\SDL_image\libx86;C:\Users\Pol Vilà\Documents\TheSimpsons\SDL_mixer\libx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL/libx86/SDL2.lib;SDL/libx86/SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -113,11 +118,14 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>
+      </SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />
+    <ClCompile Include="ModuleFadeToBlack.cpp" />
     <ClCompile Include="ModuleJsonManager.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -137,6 +145,7 @@
     <ClInclude Include="CollisionObserver.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="ModuleCollision.h" />
+    <ClInclude Include="ModuleFadeToBlack.h" />
     <ClInclude Include="ModuleJsonManager.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />

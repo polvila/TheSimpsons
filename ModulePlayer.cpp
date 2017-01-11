@@ -8,9 +8,7 @@
 
 ModulePlayer::ModulePlayer(bool start_enabled) : Module(start_enabled), CollisionObserver()
 {
-	position.x = 80;
-	position.y = 0;
-	zPosition = 68;
+	
 }
 
 ModulePlayer::~ModulePlayer()
@@ -25,6 +23,11 @@ bool ModulePlayer::Start()
 		App->GetModuleJsonManager()->GetTexturePathOf(HOMER),
 		App->GetModuleJsonManager()->GetTransparentPixelColor(HOMER)
 	);
+
+	position.x = 80;
+	position.y = 0;
+	zPosition = 68;
+	lookingRight = true;
 
 	pair<int, int>* homerColliderSize = 
 		App->GetModuleJsonManager()->GetColliderSizeOf(HOMER_COLLIDER);
@@ -43,6 +46,7 @@ bool ModulePlayer::CleanUp()
 	LOG("Unloading player");
 
 	App->GetModuleTextures()->Unload(graphics);
+	yawnTimer.Clear();
 
 	return true;
 }
@@ -92,7 +96,7 @@ void ModulePlayer::CalculeRealYPosition()
 	realYPosition = realGrondYPosition - position.y;
 }
 
-bool ModulePlayer::AnyMovementKeyPressed()
+bool ModulePlayer::NoMovementKeyPressed()
 {
 	return App->GetModuleInput()->GetKey(SDL_SCANCODE_W) == KEY_IDLE &&
 		App->GetModuleInput()->GetKey(SDL_SCANCODE_S) == KEY_IDLE &&
@@ -149,7 +153,7 @@ void ModulePlayer::Upwards()
 
 void ModulePlayer::Idle()
 {
-	if (AnyMovementKeyPressed())
+	if (NoMovementKeyPressed())
 	{
 		if(yawnTimer.GetTimerTicks()/1000 >= 2)
 		{
