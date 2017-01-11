@@ -38,6 +38,10 @@ If you want, you can use some controls to debug the stage with Homer. You will b
 
 See https://github.com/polvila/TheSimpsons.
 
+##GitHub Release
+
+See https://github.com/polvila/TheSimpsons/releases.
+
 ##License
 
 This project is licensed under the terms of the MIT license.
