@@ -126,7 +126,7 @@ private:
 	JSON_Object* homerElements = nullptr;
 	JSON_Object* npcElements = nullptr;
 
-	const char* inputFile = "TheSimpsons/assetsInfo2.json";
+	const char* inputFile = "TheSimpsons/assetsInfo.json";
 };
 
 
